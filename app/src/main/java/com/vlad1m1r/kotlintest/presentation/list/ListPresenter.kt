@@ -31,12 +31,8 @@ class ListPresenter(private val mView: ListContract.View) : ListContract.Present
         mDisposables.clear()
     }
 
-    override fun loadData() {
-        mView.showProgress(true)
-        loadData(0)
-    }
-
     override fun loadData(offset:Int) {
+        if(offset == 0) mView.showProgress(true)
         mDisposables.add(
                 mGetPhotos.getPhotos(offset, LIMIT)
                         .subscribeOn(Schedulers.io())

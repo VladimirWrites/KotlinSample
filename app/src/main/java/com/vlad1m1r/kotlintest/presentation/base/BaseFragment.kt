@@ -36,11 +36,11 @@ abstract class BaseFragment<P : IBasePresenter> : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (presenter != null) presenter!!.onStart()
+        presenter?.onStart()
     }
 
     override fun onDestroy() {
-        if (presenter != null) presenter!!.onDestroy()
+        presenter?.onDestroy()
         super.onDestroy()
     }
 

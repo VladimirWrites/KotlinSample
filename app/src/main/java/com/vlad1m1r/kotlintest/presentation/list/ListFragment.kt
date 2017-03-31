@@ -34,7 +34,7 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
         recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         // creates just in case that fragment was not retained or it's first onViewCreated call so mListAdapter == null
-        if(mListAdapter == null) mListAdapter = ListAdapter()
+        mListAdapter = mListAdapter ?: ListAdapter()
         recyclerView.adapter = mListAdapter
 
         mEndlessScrollListener = object : EndlessScrollListener(recyclerView.layoutManager) {
@@ -95,7 +95,7 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
     }
 
     override fun onRefresh() {
-        mEndlessScrollListener!!.reset()
+        mEndlessScrollListener?.reset()
         mPresenter?.loadData()
     }
 

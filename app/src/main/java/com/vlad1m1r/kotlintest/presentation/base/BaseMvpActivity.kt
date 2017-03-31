@@ -30,7 +30,7 @@ abstract class BaseMvpActivity<P : IBasePresenter, F : BaseFragment<P>> : BaseAc
             transaction.commit()
         }
 
-        if (fragment!!.presenter != null) {
+        if (fragment.presenter != null) {
             mPresenter = fragment.presenter as P
         } else {
             mPresenter = getPresenter(fragment)

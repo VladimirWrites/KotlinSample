@@ -10,8 +10,7 @@ import java.util.ArrayList
 interface ListContract {
 
     interface Presenter : IBasePresenter {
-        fun loadData()
-        fun loadData(offset:Int)
+        fun loadData(offset:Int = 0)
     }
 
     interface View : IViewError {
