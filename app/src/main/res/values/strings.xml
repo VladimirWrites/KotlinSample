@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">KotlinTest</string>
+
+    <!-- empty -->
+    <string name="empty__title">No results</string>
+    <string name="empty__message">Try again with another data</string>
+
+    <!-- error -->
+    <string name="error__loading">Loading failed</string>
+    <string name="error__no_internet_connection">No internet connection</string>
+    <string name="error__check_internet_connection">Check internet connection</string>
+    <string name="error__request_error">Ups! Something went wrong :( \nPlease check again latter.</string>
+    <string name="error__try_again">Try again</string>
+</resources>

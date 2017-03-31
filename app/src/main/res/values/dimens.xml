@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- margins -->
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+
+    <!-- elevations -->
+    <dimen name="elevation__toolbar">4dp</dimen>
+
+</resources>

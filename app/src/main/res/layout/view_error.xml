@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_normal"
+    android:paddingTop="@dimen/margin_normal"
+    tools:visibility="visible">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/text_title_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/margin_small"
+        android:drawableTop="@drawable/ic_error_outline"
+        android:gravity="center_horizontal"
+        android:text="@string/error__loading"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/text_primary_dark"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/text_message_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textColor="@color/text_secondary_dark"
+        tools:text="@string/error__check_internet_connection"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:text="@string/error__try_again"/>
+</LinearLayout>
+
