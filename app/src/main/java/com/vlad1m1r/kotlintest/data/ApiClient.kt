@@ -22,7 +22,7 @@ class ApiClient {
     var services: ApiInterface? = null
         private set
 
-    constructor() {
+    init {
         if (client == null) {
 
             val interceptor = HttpLoggingInterceptor()
@@ -45,4 +45,5 @@ class ApiClient {
 
         }
     }
+
 }
