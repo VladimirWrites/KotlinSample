@@ -14,7 +14,7 @@ class GetPhotos {
                 .map({list:ArrayList<PhotoData> ->  formatData(list)})
     }
 
-    fun formatData(photos:ArrayList<PhotoData>) : ArrayList<ItemPhoto> {
+    fun formatData(photos:List<PhotoData>) : ArrayList<ItemPhoto> {
         val itemPhotos:ArrayList<ItemPhoto>  = ArrayList(photos.size)
         photos.mapTo(itemPhotos) { ItemPhoto(it.title.orEmpty(), it.url.orEmpty()) }
         return itemPhotos
