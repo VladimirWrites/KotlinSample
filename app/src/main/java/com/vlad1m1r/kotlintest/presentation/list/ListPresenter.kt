@@ -11,17 +11,14 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class ListPresenter(private val mView: ListContract.View) : ListContract.Presenter {
+class ListPresenter(private val mView: ListContract.View,private val mGetPhotos: GetPhotos) : ListContract.Presenter {
 
     val LIMIT = 20
-
-    internal var mGetPhotos: GetPhotos
 
     private val mDisposables = CompositeDisposable()
 
     init {
         this.mView.setPresenter(this)
-        this.mGetPhotos = GetPhotos()
     }
 
     override fun onStart() {}
