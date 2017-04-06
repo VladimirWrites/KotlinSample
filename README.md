@@ -2,7 +2,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/vlad1m1r990/KotlinSample/blob/master/LICENSE) 
 [![Kotlin](https://img.shields.io/badge/style-1.1.1-green.svg?style=flat&label=Kotlin)](https://kotlinlang.org) 
 
------
 
 Simple Android app written in Kotlin
 
