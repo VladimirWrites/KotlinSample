@@ -10,7 +10,7 @@ import kotlin.collections.ArrayList
 
 abstract class BaseAdapter<T : RecyclerView.ViewHolder, H> : RecyclerView.Adapter<T>() {
 
-    protected val mList: ArrayList<H> = ArrayList<H>();
+    protected val mList: ArrayList<H> = ArrayList()
 
     override fun getItemCount(): Int {
         return mList.size

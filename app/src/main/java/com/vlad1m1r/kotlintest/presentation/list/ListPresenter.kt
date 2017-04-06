@@ -1,6 +1,5 @@
 package com.vlad1m1r.kotlintest.presentation.list
 
-
 import com.vlad1m1r.kotlintest.R
 import com.vlad1m1r.kotlintest.data.interactors.GetPhotos
 import com.vlad1m1r.kotlintest.data.models.ItemPhoto
