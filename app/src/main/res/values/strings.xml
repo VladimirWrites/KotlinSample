@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KotlinTest</string>
+    <string name="app_name">Kotlin Sample</string>
 
     <!-- empty -->
     <string name="empty__title">No results</string>
