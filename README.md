@@ -15,6 +15,12 @@ Communication with API is done using Retrofit together with RxJava2 Adapter.
 RxJava is used for all network related threading.
 The presentation layer is based on MVP architectural pattern. 
 
+Contributing
+-------
+
+Want to contribute? You are welcome! 
+Note that all pull request should go to [`development`](https://github.com/vlad1m1r990/KotlinSample/tree/development) branch.
+
 Credits
 -------
 
