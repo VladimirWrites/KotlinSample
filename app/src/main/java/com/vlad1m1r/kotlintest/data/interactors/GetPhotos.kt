@@ -1,6 +1,6 @@
 package com.vlad1m1r.kotlintest.data.interactors
 
-import com.vlad1m1r.kotlintest.AppConfig
+import com.vlad1m1r.kotlintest.data.ApiInterface
 import com.vlad1m1r.kotlintest.data.models.ItemPhoto
 import com.vlad1m1r.kotlintest.data.models.PhotoData
 import io.reactivex.Observable
@@ -8,9 +8,9 @@ import io.reactivex.Observable
 /**
  * Created by vladimirjovanovic on 3/24/17.
  */
-class GetPhotos {
+class GetPhotos(val apiInterface: ApiInterface) {
     fun getPhotos(offset:Int, limit:Int):Observable<ArrayList<ItemPhoto>> {
-        return AppConfig.restService.getPhotos(offset, limit)
+        return this.apiInterface.getPhotos(offset, limit)
                 .map({list:ArrayList<PhotoData> ->  formatData(list)})
     }
 

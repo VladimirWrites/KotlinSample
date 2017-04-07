@@ -12,7 +12,7 @@ import com.vlad1m1r.kotlintest.R
  */
 abstract class BaseMvpActivity<P : IBasePresenter, F : BaseFragment<P>> : BaseActivity(), BaseFragment.IFragmentHolder {
 
-    open var mPresenter: P? = null
+    open var presenter: P? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +30,9 @@ abstract class BaseMvpActivity<P : IBasePresenter, F : BaseFragment<P>> : BaseAc
         }
 
         if (fragment.presenter != null) {
-            mPresenter = fragment.presenter as P
+            presenter = fragment.presenter as P
         } else {
-            mPresenter = getPresenter(fragment)
+            presenter = getPresenter(fragment)
         }
     }
 

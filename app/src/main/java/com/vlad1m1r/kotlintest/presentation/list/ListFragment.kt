@@ -21,8 +21,8 @@ import kotlinx.android.synthetic.main.fragment_list.*
 
 class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, SwipeRefreshLayout.OnRefreshListener {
 
-    var mEndlessScrollListener : EndlessScrollListener? = null
-    var mListAdapter : ListAdapter? = null
+    var endlessScrollListener: EndlessScrollListener? = null
+    var listAdapter: ListAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_list, container, false)
@@ -33,36 +33,36 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
-        // creates just in case that fragment was not retained or it's first onViewCreated call so mListAdapter == null
-        mListAdapter = mListAdapter ?: ListAdapter()
-        recyclerView.adapter = mListAdapter
+        // creates just in case that fragment was not retained or it's first onViewCreated call so listAdapter == null
+        this.listAdapter = listAdapter ?: ListAdapter()
+        recyclerView.adapter = listAdapter
 
-        mEndlessScrollListener = object : EndlessScrollListener(recyclerView.layoutManager) {
+        this.endlessScrollListener = object : EndlessScrollListener(recyclerView.layoutManager) {
             override fun onLoadMore(currentPage: Int, totalItemCount: Int) {
                 if (totalItemCount > 1) {
-                    mPresenter!!.loadData(totalItemCount)
+                    presenter!!.loadData(totalItemCount)
                 }
             }
             override fun onScroll(firstVisibleItem: Int, dy: Int, scrollPosition: Int) {}
         }
 
-        recyclerView.addOnScrollListener(mEndlessScrollListener)
+        recyclerView.addOnScrollListener(endlessScrollListener)
 
         swipeRefresh.setOnRefreshListener(this)
 
         // loads data just in case that fragment was not retained or it's first onViewCreated call
-        if(mListAdapter!!.list.size == 0) loadData()
+        if(listAdapter!!.list.size == 0) loadData()
     }
 
     override fun loadData() {
         if (NetworkUtils.isNetworkConnected(context))
-            mPresenter?.loadData()
+            this.presenter?.loadData()
         else
             showError(R.string.error__no_internet_connection)
     }
 
     override fun setPresenter(presenter: ListContract.Presenter) {
-        mPresenter = presenter
+        this.presenter = presenter
     }
 
     override fun showList(list: ArrayList<ItemPhoto>) {
@@ -95,8 +95,8 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
     }
 
     override fun onRefresh() {
-        mEndlessScrollListener?.reset()
-        mPresenter?.loadData()
+        this.endlessScrollListener?.reset()
+        this.presenter?.loadData()
     }
 
     companion object {

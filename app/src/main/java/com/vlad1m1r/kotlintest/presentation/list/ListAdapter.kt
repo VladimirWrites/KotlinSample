@@ -23,6 +23,6 @@ class ListAdapter : BaseAdapter<ListViewHolder, ItemPhoto>() {
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.setPhoto(mList[position])
+        holder.setPhoto(listOfData[position])
     }
 }

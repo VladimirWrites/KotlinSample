@@ -15,9 +15,9 @@ abstract class BaseFragment<P : IBasePresenter> : Fragment() {
         fun refreshFragment()
     }
 
-    var mPresenter: P? = null
+    open var presenter: P? = null
 
-    protected var mFragmentHolder: IFragmentHolder? = null
+    protected var fragmentHolder: IFragmentHolder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +26,12 @@ abstract class BaseFragment<P : IBasePresenter> : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        mFragmentHolder = context as IFragmentHolder?
+        fragmentHolder = context as IFragmentHolder?
     }
 
     override fun onDetach() {
         super.onDetach()
-        mFragmentHolder = null
+        fragmentHolder = null
     }
 
     override fun onStart() {
@@ -47,8 +47,4 @@ abstract class BaseFragment<P : IBasePresenter> : Fragment() {
     protected fun retainInstance(): Boolean {
         return true
     }
-
-    val presenter: IBasePresenter?
-        get() = mPresenter
-
 }

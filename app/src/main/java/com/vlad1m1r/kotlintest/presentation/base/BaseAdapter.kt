@@ -10,23 +10,23 @@ import kotlin.collections.ArrayList
 
 abstract class BaseAdapter<T : RecyclerView.ViewHolder, H> : RecyclerView.Adapter<T>() {
 
-    protected val mList: ArrayList<H> = ArrayList()
+    protected val listOfData: ArrayList<H> = ArrayList()
 
     override fun getItemCount(): Int {
-        return mList.size
+        return listOfData.size
     }
 
     var list: ArrayList<H>
-        get() = mList
+        get() = this.listOfData
         set(list) {
-            this.mList.clear()
-            this.mList.addAll(list)
+            this.listOfData.clear()
+            this.listOfData.addAll(list)
             notifyDataSetChanged()
         }
 
     fun addList(list:ArrayList<H>) {
-        val oldSize:Int = mList.size
-        mList.addAll(list)
-        notifyItemRangeChanged(oldSize, mList.size)
+        val oldSize:Int = this.listOfData.size
+        this.listOfData.addAll(list)
+        notifyItemRangeChanged(oldSize, this.listOfData.size)
     }
 }
