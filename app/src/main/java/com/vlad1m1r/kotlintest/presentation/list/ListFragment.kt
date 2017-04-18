@@ -1,6 +1,7 @@
 package com.vlad1m1r.kotlintest.presentation.list
 
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -18,8 +19,9 @@ import com.vlad1m1r.kotlintest.presentation.utils.EndlessScrollListener
 import java.util.ArrayList
 
 import kotlinx.android.synthetic.main.fragment_list.*
+import kotlinx.android.synthetic.main.view_error.*
 
-class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, SwipeRefreshLayout.OnRefreshListener {
+class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     var endlessScrollListener: EndlessScrollListener? = null
     var listAdapter: ListAdapter? = null
@@ -52,13 +54,15 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
 
         // loads data just in case that fragment was not retained or it's first onViewCreated call
         if(listAdapter!!.list.size == 0) loadData()
+
+        buttonTryAgain.setOnClickListener(this)
     }
 
     override fun loadData() {
         if (NetworkUtils.isNetworkConnected(context))
             this.presenter?.loadData()
         else
-            showError(R.string.error__no_internet_connection)
+            this.presenter?.loadingDataError(R.string.error__no_internet_connection)
     }
 
     override fun setPresenter(presenter: ListContract.Presenter) {
@@ -80,9 +84,10 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
         swipeRefresh.visibility = View.VISIBLE
     }
 
-    override fun showError(error: Int) {
+    override fun showError(@StringRes error: Int) {
         viewEmpty.visibility = View.GONE
         viewError.visibility = View.VISIBLE
+        textMessageError.setText(error)
         swipeRefresh.visibility = View.GONE
         swipeRefresh.isRefreshing = false
     }
@@ -96,7 +101,13 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
 
     override fun onRefresh() {
         this.endlessScrollListener?.reset()
-        this.presenter?.loadData()
+        loadData()
+    }
+
+    override fun onClick(v: View?) {
+        when(v!!.id) {
+            R.id.buttonTryAgain -> loadData()
+        }
     }
 
     companion object {

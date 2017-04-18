@@ -1,5 +1,6 @@
 package com.vlad1m1r.kotlintest.presentation.list
 
+import android.support.annotation.StringRes
 import com.vlad1m1r.kotlintest.R
 import com.vlad1m1r.kotlintest.data.interactors.GetPhotos
 import com.vlad1m1r.kotlintest.data.models.ItemPhoto
@@ -11,26 +12,27 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class ListPresenter(private val mView: ListContract.View,private val mGetPhotos: GetPhotos) : ListContract.Presenter {
+class ListPresenter(private val view: ListContract.View, private val getPhotos: GetPhotos) : ListContract.Presenter {
 
     val LIMIT = 20
 
-    private val mDisposables = CompositeDisposable()
+    private val disposables = CompositeDisposable()
 
     init {
-        this.mView.setPresenter(this)
+        this.view.setPresenter(this)
     }
 
     override fun onStart() {}
 
     override fun onDestroy() {
-        mDisposables.clear()
+        disposables.clear()
     }
 
-    override fun loadData(offset:Int) {
-        if(offset == 0) mView.showProgress(true)
-        mDisposables.add(
-                mGetPhotos.getPhotos(offset, LIMIT)
+    override fun loadData(offset: Int) {
+        if (offset == 0) view.showProgress(true)
+        disposables.add(
+                getPhotos
+                        .getPhotos(offset, LIMIT)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .single(ArrayList<ItemPhoto>())
@@ -39,23 +41,28 @@ class ListPresenter(private val mView: ListContract.View,private val mGetPhotos:
 
                                     override fun onSuccess(photos: ArrayList<ItemPhoto>) {
                                         if (photos.size > 0) {
-                                            if(offset > 0) {
-                                                mView.addList(photos)
+                                            if (offset > 0) {
+                                                view.addList(photos)
                                             } else {
-                                                mView.showList(photos)
-                                                mView.showProgress(false)
+                                                view.showList(photos)
+                                                view.showProgress(false)
                                             }
 
                                         } else {
-                                            mView.showEmptyView()
+                                            view.showEmptyView()
                                         }
                                     }
 
                                     override fun onError(e: Throwable) {
-                                        mView.showError(R.string.error__request_error)
+                                        view.showError(R.string.error__request_error)
                                     }
                                 }
                         )
         )
+    }
+
+    override fun loadingDataError(@StringRes error: Int) {
+        view.showList(ArrayList())
+        view.showError(error)
     }
 }

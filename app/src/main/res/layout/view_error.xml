@@ -11,7 +11,7 @@
     tools:visibility="visible">
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/text_title_error"
+        android:id="@+id/textTitleError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/margin_small"
@@ -22,7 +22,7 @@
         android:textColor="@color/text_primary_dark"/>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/text_message_error"
+        android:id="@+id/textMessageError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_large"
@@ -33,7 +33,7 @@
         tools:text="@string/error__check_internet_connection"/>
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/button_try_again"
+        android:id="@+id/buttonTryAgain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal"
