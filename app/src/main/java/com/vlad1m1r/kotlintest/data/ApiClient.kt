@@ -31,32 +31,28 @@ class ApiClient {
 
     val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
-    var client: Retrofit? = null
+    var client: Retrofit
         private set
-    var services: ApiInterface? = null
+    var services: ApiInterface
         private set
 
     init {
-        if (client == null) {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.HEADERS else HttpLoggingInterceptor.Level.NONE
 
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.HEADERS else HttpLoggingInterceptor.Level.NONE
+        val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build()
 
-            val okHttpClient = OkHttpClient.Builder()
-                    .addInterceptor(interceptor)
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .build()
+        client = Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BASE_URL)
+                .client(okHttpClient)
+                .build()
 
-            client = Retrofit.Builder()
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl(BASE_URL)
-                    .client(okHttpClient)
-                    .build()
-
-            services = client!!.create(ApiInterface::class.java)
-
-        }
+        services = client.create(ApiInterface::class.java)
     }
 }

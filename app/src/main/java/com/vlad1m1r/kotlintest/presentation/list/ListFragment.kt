@@ -39,7 +39,7 @@ import kotlinx.android.synthetic.main.view_error.*
 
 class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
-    var endlessScrollListener: EndlessScrollListener? = null
+    lateinit var endlessScrollListener: EndlessScrollListener
     var listAdapter: ListAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -116,7 +116,7 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
     }
 
     override fun onRefresh() {
-        this.endlessScrollListener?.reset()
+        this.endlessScrollListener.reset()
         loadData()
     }
 
