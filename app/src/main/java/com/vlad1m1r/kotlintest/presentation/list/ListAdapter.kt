@@ -25,16 +25,18 @@ import com.vlad1m1r.kotlintest.presentation.base.BaseAdapter
 
 class ListAdapter : BaseAdapter<ListViewHolder, ItemPhoto>() {
 
-    val TYPE_LANGUAGE = 0
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder? {
         when (viewType) {
-            TYPE_LANGUAGE -> return ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false))
+            R.layout.item_photo -> return ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false))
             else -> return null
         }
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.setPhoto(listOfData[position])
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return R.layout.item_photo
     }
 }

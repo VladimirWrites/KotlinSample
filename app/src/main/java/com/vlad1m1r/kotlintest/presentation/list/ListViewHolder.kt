@@ -28,7 +28,7 @@ import com.vlad1m1r.kotlintest.presentation.base.BaseViewHolder
 class ListViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
     fun setPhoto(itemPhoto: ItemPhoto) {
-        (itemView.findViewById(R.id.textName) as TextView).text = itemPhoto.name
-        Glide.with(itemView.context).load(itemPhoto.url).into(itemView.findViewById(R.id.imageView) as ImageView)
+        itemView.findViewById<TextView>(R.id.textName).text = itemPhoto.name
+        Glide.with(itemView.context).load(itemPhoto.url).into(itemView.findViewById<ImageView>(R.id.imageView))
     }
 }
