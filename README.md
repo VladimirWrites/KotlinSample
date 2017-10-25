@@ -1,6 +1,6 @@
 # KotlinSample
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/vlad1m1r990/KotlinSample/blob/master/LICENSE) 
-[![Kotlin](https://img.shields.io/badge/style-1.1.1-green.svg?style=flat&label=Kotlin)](https://kotlinlang.org) 
+[![Kotlin](https://img.shields.io/badge/style-1.1.51-green.svg?style=flat&label=Kotlin)](https://kotlinlang.org) 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-KotlinSample-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/5554)
 
 

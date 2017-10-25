@@ -18,9 +18,9 @@ package com.vlad1m1r.kotlintest.data.interactors
 
 import com.vlad1m1r.kotlintest.data.ApiInterface
 import com.vlad1m1r.kotlintest.data.models.PhotoData
+import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.runners.MockitoJUnitRunner
@@ -29,14 +29,17 @@ import org.mockito.runners.MockitoJUnitRunner
 class GetPhotosTest {
 
     @Mock
-    var apiInterface:ApiInterface? = null
+    lateinit var apiInterface: ApiInterface
+    lateinit var getPhotos: GetPhotos
+
+    @Before
+    fun setUp() {
+        getPhotos = GetPhotos(apiInterface)
+    }
 
     @Test
-    fun formatData() {
-        val getPhotos:GetPhotos = GetPhotos(apiInterface!!)
-
-        val photosData:ArrayList<PhotoData> = arrayListOf()
-
+    fun dataFormatted() {
+        val photosData: ArrayList<PhotoData> = arrayListOf()
         (0..3).mapTo(photosData) {
             PhotoData(
                     albumId = 100 + it,
@@ -48,14 +51,17 @@ class GetPhotosTest {
         }
 
         val photos = getPhotos.formatData(photosData)
-        for(i:Int in 0..3) {
+
+        for (i: Int in 0..3) {
             val photo = photos[i]
-            assertEquals(photo.name, "test"+i)
-            assertEquals(photo.url, "url"+i)
+            assertEquals("test" + i, photo.name)
+            assertEquals("url" + i, photo.url)
         }
+    }
 
-        val photosDataEmpty:ArrayList<PhotoData> = arrayListOf()
-
+    @Test
+    fun dataFormattedEmpty() {
+        val photosDataEmpty: ArrayList<PhotoData> = arrayListOf()
         (0..3).mapTo(photosDataEmpty) {
             PhotoData(
                     albumId = 100 + it,
@@ -65,10 +71,11 @@ class GetPhotosTest {
         }
 
         val photosEmpty = getPhotos.formatData(photosDataEmpty)
-        for(i:Int in 0..3) {
+
+        for (i: Int in 0..3) {
             val photo = photosEmpty[i]
-            assertEquals(photo.name, "")
-            assertEquals(photo.url, "")
+            assertEquals("", photo.name)
+            assertEquals("", photo.url)
         }
     }
 }

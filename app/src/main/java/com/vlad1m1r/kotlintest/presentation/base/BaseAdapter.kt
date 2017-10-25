@@ -18,15 +18,11 @@ package com.vlad1m1r.kotlintest.presentation.base
 
 import android.support.v7.widget.RecyclerView
 
-import kotlin.collections.ArrayList
-
 abstract class BaseAdapter<T : RecyclerView.ViewHolder, H> : RecyclerView.Adapter<T>() {
 
     protected val listOfData: ArrayList<H> = ArrayList()
 
-    override fun getItemCount(): Int {
-        return listOfData.size
-    }
+    override fun getItemCount(): Int = listOfData.size
 
     var list: ArrayList<H>
         get() = this.listOfData

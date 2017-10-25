@@ -25,18 +25,13 @@ import com.vlad1m1r.kotlintest.presentation.base.BaseAdapter
 
 class ListAdapter : BaseAdapter<ListViewHolder, ItemPhoto>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder? {
-        when (viewType) {
-            R.layout.item_photo -> return ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false))
-            else -> return null
-        }
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder? =
+            when (viewType) {
+                R.layout.item_photo -> ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false))
+                else -> null
+            }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.setPhoto(listOfData[position])
-    }
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int) = holder.setPhoto(listOfData[position])
 
-    override fun getItemViewType(position: Int): Int {
-        return R.layout.item_photo
-    }
+    override fun getItemViewType(position: Int): Int = R.layout.item_photo
 }

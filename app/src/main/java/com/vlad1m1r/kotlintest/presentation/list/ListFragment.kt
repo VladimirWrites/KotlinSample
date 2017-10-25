@@ -16,6 +16,7 @@
 
 package com.vlad1m1r.kotlintest.presentation.list
 
+
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
@@ -24,18 +25,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-
 import com.vlad1m1r.kotlintest.R
 import com.vlad1m1r.kotlintest.data.models.ItemPhoto
-import com.vlad1m1r.kotlintest.data.utils.NetworkUtils
+import com.vlad1m1r.kotlintest.data.utils.NetworkUtils.isNetworkConnected
 import com.vlad1m1r.kotlintest.presentation.base.BaseFragment
 import com.vlad1m1r.kotlintest.presentation.utils.EndlessScrollListener
-
-import java.util.ArrayList
-
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.view_error.*
+import java.util.*
 
 class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
@@ -75,7 +72,7 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
     }
 
     override fun loadData() {
-        if (NetworkUtils.isNetworkConnected(context))
+        if (context.isNetworkConnected())
             this.presenter?.loadData()
         else
             this.presenter?.loadingDataError(R.string.error__no_internet_connection)
@@ -127,9 +124,6 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
     }
 
     companion object {
-
-        fun newInstance(): ListFragment {
-            return ListFragment()
-        }
+        fun newInstance(): ListFragment = ListFragment()
     }
 }

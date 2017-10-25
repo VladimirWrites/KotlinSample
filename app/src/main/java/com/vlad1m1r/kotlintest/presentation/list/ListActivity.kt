@@ -22,11 +22,8 @@ import com.vlad1m1r.kotlintest.presentation.base.BaseMvpActivity
 
 class ListActivity : BaseMvpActivity<ListContract.Presenter, ListFragment>() {
 
-    override fun getFragment(): ListFragment {
-        return ListFragment.newInstance()
-    }
+    override fun getFragment(): ListFragment = ListFragment.newInstance()
 
-    override fun getPresenter(fragment: ListFragment): ListContract.Presenter {
-        return ListPresenter(fragment as ListContract.View, GetPhotos(ApiClient().services!!))
-    }
+    override fun getPresenter(fragment: ListFragment): ListContract.Presenter =
+            ListPresenter(fragment as ListContract.View, GetPhotos(ApiClient().services))
 }

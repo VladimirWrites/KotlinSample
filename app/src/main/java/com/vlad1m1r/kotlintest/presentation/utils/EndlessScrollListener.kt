@@ -42,15 +42,14 @@ abstract class EndlessScrollListener(layoutManager: RecyclerView.LayoutManager) 
     private var spanArray: IntArray? = null
 
     init {
-        if (layoutManager is GridLayoutManager) {
-            this.gridLayoutManager = layoutManager
-        } else if (layoutManager is LinearLayoutManager) {
-            this.linearLayoutManager = layoutManager
-        } else if (layoutManager is StaggeredGridLayoutManager) {
-            this.staggeredGridLayoutManager = layoutManager
-            spanArray = IntArray(staggeredGridLayoutManager!!.spanCount)
-        } else {
-            throw IllegalArgumentException("Selected LayoutManager has not supported")
+        when (layoutManager) {
+            is GridLayoutManager -> this.gridLayoutManager = layoutManager
+            is LinearLayoutManager -> this.linearLayoutManager = layoutManager
+            is StaggeredGridLayoutManager -> {
+                this.staggeredGridLayoutManager = layoutManager
+                spanArray = IntArray(staggeredGridLayoutManager!!.spanCount)
+            }
+            else -> throw IllegalArgumentException("Selected LayoutManager has not supported")
         }
     }
 
@@ -59,15 +58,22 @@ abstract class EndlessScrollListener(layoutManager: RecyclerView.LayoutManager) 
 
         visibleItemCount = recyclerView!!.childCount
 
-        if (linearLayoutManager != null) {
-            totalItemCount = linearLayoutManager!!.itemCount
-            firstVisibleItem = linearLayoutManager!!.findFirstVisibleItemPosition()
-        } else if (gridLayoutManager != null) {
-            totalItemCount = gridLayoutManager!!.itemCount
-            firstVisibleItem = gridLayoutManager!!.findFirstVisibleItemPosition()
-        } else if (staggeredGridLayoutManager != null) {
-            totalItemCount = staggeredGridLayoutManager!!.itemCount
-            firstVisibleItem = staggeredGridLayoutManager!!.findFirstVisibleItemPositions(spanArray)[0]
+        // End has been reached
+
+        // Do something
+        when {
+            linearLayoutManager != null -> {
+                totalItemCount = linearLayoutManager!!.itemCount
+                firstVisibleItem = linearLayoutManager!!.findFirstVisibleItemPosition()
+            }
+            gridLayoutManager != null -> {
+                totalItemCount = gridLayoutManager!!.itemCount
+                firstVisibleItem = gridLayoutManager!!.findFirstVisibleItemPosition()
+            }
+            staggeredGridLayoutManager != null -> {
+                totalItemCount = staggeredGridLayoutManager!!.itemCount
+                firstVisibleItem = staggeredGridLayoutManager!!.findFirstVisibleItemPositions(spanArray)[0]
+            }
         }
 
         scrollPosition = recyclerView.computeVerticalScrollOffset()

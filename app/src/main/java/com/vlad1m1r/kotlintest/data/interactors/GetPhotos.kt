@@ -29,9 +29,9 @@ class GetPhotos(val apiInterface: ApiInterface) {
                 .map({list:ArrayList<PhotoData> ->  formatData(list)})
     }
 
-    fun formatData(photos:List<PhotoData>) : ArrayList<ItemPhoto> {
-        val itemPhotos:ArrayList<ItemPhoto>  = ArrayList(photos.size)
-        photos.mapTo(itemPhotos) { ItemPhoto(it.title.orEmpty(), it.url.orEmpty()) }
-        return itemPhotos
-    }
+    fun formatData(photos:List<PhotoData>) : ArrayList<ItemPhoto> = photos.transform { ItemPhoto(it.title, it.url) }
+
+    private fun <T, K> List<T>.transform(transformation: (T)->K) : ArrayList<K> =
+            this.mapTo(ArrayList(this.size)) { transformation(it) }
+
 }

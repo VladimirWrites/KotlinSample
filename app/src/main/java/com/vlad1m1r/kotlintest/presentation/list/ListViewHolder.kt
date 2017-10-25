@@ -17,9 +17,7 @@
 package com.vlad1m1r.kotlintest.presentation.list
 
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
-
 import com.bumptech.glide.Glide
 import com.vlad1m1r.kotlintest.R
 import com.vlad1m1r.kotlintest.data.models.ItemPhoto
@@ -29,6 +27,6 @@ class ListViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
     fun setPhoto(itemPhoto: ItemPhoto) {
         itemView.findViewById<TextView>(R.id.textName).text = itemPhoto.name
-        Glide.with(itemView.context).load(itemPhoto.url).into(itemView.findViewById<ImageView>(R.id.imageView))
+        Glide.with(itemView.context).load(itemPhoto.url).into(itemView.findViewById(R.id.imageView))
     }
 }
