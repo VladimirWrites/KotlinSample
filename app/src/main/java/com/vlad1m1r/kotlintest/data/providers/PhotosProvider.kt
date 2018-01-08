@@ -14,24 +14,26 @@
  * limitations under the License.
  */
 
-package com.vlad1m1r.kotlintest.data.interactors
+package com.vlad1m1r.kotlintest.data.providers
 
 import com.vlad1m1r.kotlintest.data.ApiInterface
-import com.vlad1m1r.kotlintest.data.models.ItemPhoto
 import com.vlad1m1r.kotlintest.data.models.PhotoData
+import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
 import io.reactivex.Observable
 
+class PhotosProvider(private val apiInterface: ApiInterface) {
 
-class GetPhotos(val apiInterface: ApiInterface) {
-    fun getPhotos(offset:Int, limit:Int):Observable<ArrayList<ItemPhoto>> {
+    val getPhotos: (offset: Int, limit: Int) -> Observable<ArrayList<ItemPhoto>>
+            = { offset, limit -> getPhotos(offset, limit) }
+
+    private fun getPhotos(offset: Int, limit: Int): Observable<ArrayList<ItemPhoto>> {
         return this.apiInterface
                 .getPhotos(offset, limit)
-                .map({list:ArrayList<PhotoData> ->  formatData(list)})
+                .map({ list: ArrayList<PhotoData> -> formatData(list) })
     }
 
-    fun formatData(photos:List<PhotoData>) : ArrayList<ItemPhoto> = photos.transform { ItemPhoto(it.title, it.url) }
+    private fun formatData(photos: List<PhotoData>): ArrayList<ItemPhoto> = photos.transform { ItemPhoto(it.title, it.url) }
 
-    private fun <T, K> List<T>.transform(transformation: (T)->K) : ArrayList<K> =
+    private fun <T, K> List<T>.transform(transformation: (T) -> K): ArrayList<K> =
             this.mapTo(ArrayList(this.size)) { transformation(it) }
-
 }

@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-package com.vlad1m1r.kotlintest.data.models
+package com.vlad1m1r.kotlintest.domain.interactors
 
+import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
+import io.reactivex.Observable
 
-class ItemPhoto(val name: String, val url: String)
+class GetPhotos(private var photosProvider: (offset: Int, limit: Int) -> Observable<ArrayList<ItemPhoto>>) {
+    fun getPhotos(offset: Int, limit: Int): Observable<ArrayList<ItemPhoto>>
+            = photosProvider(offset, limit)
+}

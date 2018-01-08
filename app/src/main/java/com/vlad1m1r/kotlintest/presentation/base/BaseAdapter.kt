@@ -32,8 +32,8 @@ abstract class BaseAdapter<T : RecyclerView.ViewHolder, H> : RecyclerView.Adapte
             notifyDataSetChanged()
         }
 
-    fun addList(list:ArrayList<H>) {
-        val oldSize:Int = this.listOfData.size
+    fun addList(list: ArrayList<H>) {
+        val oldSize: Int = this.listOfData.size
         this.listOfData.addAll(list)
         notifyItemRangeChanged(oldSize, this.listOfData.size)
     }

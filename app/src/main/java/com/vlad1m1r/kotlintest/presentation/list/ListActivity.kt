@@ -16,14 +16,48 @@
 
 package com.vlad1m1r.kotlintest.presentation.list
 
+import android.os.Bundle
+import com.vlad1m1r.kotlintest.R
 import com.vlad1m1r.kotlintest.data.ApiClient
-import com.vlad1m1r.kotlintest.data.interactors.GetPhotos
-import com.vlad1m1r.kotlintest.presentation.base.BaseMvpActivity
+import com.vlad1m1r.kotlintest.data.ApiInterface
+import com.vlad1m1r.kotlintest.data.providers.PhotosProvider
+import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
+import com.vlad1m1r.kotlintest.presentation.base.BaseActivity
+import io.reactivex.disposables.CompositeDisposable
 
-class ListActivity : BaseMvpActivity<ListContract.Presenter, ListFragment>() {
+class ListActivity : BaseActivity() {
 
-    override fun getFragment(): ListFragment = ListFragment.newInstance()
+    var presenter: ListContract.Presenter? = null
 
-    override fun getPresenter(fragment: ListFragment): ListContract.Presenter =
-            ListPresenter(fragment as ListContract.View, GetPhotos(ApiClient().services))
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_base)
+
+        var fragment = supportFragmentManager.findFragmentById(R.id.content_frame)
+
+        if (fragment == null) {
+            fragment = this.getFragment()
+
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.content_frame, fragment)
+            transaction.commit()
+        }
+
+        if (fragment is ListFragment) {
+            presenter = if (fragment.presenter != null) {
+                fragment.presenter
+            } else {
+                getPresenter(fragment)
+            }
+        }
+    }
+
+    fun getFragment(): ListFragment = ListFragment.newInstance()
+
+    fun getPresenter(fragment: ListFragment): ListContract.Presenter {
+        val apiInterface: ApiInterface = ApiClient().services
+        return ListPresenter(fragment as ListContract.View,
+                GetPhotos(PhotosProvider(apiInterface).getPhotos),
+                CompositeDisposable())
+    }
 }

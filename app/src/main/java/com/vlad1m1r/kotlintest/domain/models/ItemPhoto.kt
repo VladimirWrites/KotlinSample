@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 
-package com.vlad1m1r.kotlintest.data.utils
+package com.vlad1m1r.kotlintest.domain.models
 
-import android.content.Context
-import android.net.ConnectivityManager
-
-object NetworkUtils {
-
-    fun Context?.isNetworkConnected(): Boolean =
-            (this?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo != null
-
-}
+data class ItemPhoto(val name: String, val url: String)

@@ -20,7 +20,7 @@ import android.view.View
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.data.models.ItemPhoto
+import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
 import com.vlad1m1r.kotlintest.presentation.base.BaseViewHolder
 
 class ListViewHolder(itemView: View) : BaseViewHolder(itemView) {

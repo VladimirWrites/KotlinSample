@@ -17,6 +17,6 @@
 package com.vlad1m1r.kotlintest.presentation.base
 
 interface IBasePresenter {
-    fun onStart()
+    fun start()
     fun onDestroy()
 }

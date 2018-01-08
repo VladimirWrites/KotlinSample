@@ -17,5 +17,30 @@
 package com.vlad1m1r.kotlintest.presentation.base
 
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 
-abstract class BaseActivity : AppCompatActivity() 
+abstract class BaseActivity : AppCompatActivity() {
+
+    fun setupToolbar(homeAsUp: Boolean, toolbar: Toolbar) {
+        setSupportActionBar(toolbar)
+        if (supportActionBar != null)
+            supportActionBar!!.setDisplayHomeAsUpEnabled(homeAsUp)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                super.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+}

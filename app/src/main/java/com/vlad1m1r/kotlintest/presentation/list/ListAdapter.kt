@@ -20,7 +20,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.data.models.ItemPhoto
+import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
 import com.vlad1m1r.kotlintest.presentation.base.BaseAdapter
 
 class ListAdapter : BaseAdapter<ListViewHolder, ItemPhoto>() {

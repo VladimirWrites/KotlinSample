@@ -16,18 +16,15 @@
 
 package com.vlad1m1r.kotlintest.presentation.list
 
-import android.support.annotation.StringRes
-import com.vlad1m1r.kotlintest.data.models.ItemPhoto
+import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
 import com.vlad1m1r.kotlintest.presentation.base.IBasePresenter
 import com.vlad1m1r.kotlintest.presentation.base.IViewError
-
-import java.util.ArrayList
+import java.util.*
 
 interface ListContract {
 
     interface Presenter : IBasePresenter {
-        fun loadData(offset:Int = 0)
-        fun loadingDataError(@StringRes error: Int)
+        fun loadData(offset: Int = 0)
     }
 
     interface View : IViewError {

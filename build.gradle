@@ -1,21 +1,25 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.10'
     repositories {
         jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 allprojects {
+    apply plugin: 'jacoco'
     repositories {
         jcenter()
         google()
+    }
+    jacoco {
+        toolVersion = "0.8.0"
     }
 }
 
@@ -26,7 +30,6 @@ task clean(type: Delete) {
 ext {
     supportLibVersion = '26.1.0'
     gsonVersion = '2.8.2'
-    daggerVersion = '2.12'
     retrofitVersion = '2.3.0'
     rxAndroidVersion = '2.0.1'
     rxJavaVersion = '2.1.0'

@@ -16,7 +16,6 @@
 
 package com.vlad1m1r.kotlintest.presentation.list
 
-
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
@@ -26,8 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.data.models.ItemPhoto
-import com.vlad1m1r.kotlintest.data.utils.NetworkUtils.isNetworkConnected
+import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
 import com.vlad1m1r.kotlintest.presentation.base.BaseFragment
 import com.vlad1m1r.kotlintest.presentation.utils.EndlessScrollListener
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -58,6 +56,7 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
                     presenter!!.loadData(totalItemCount)
                 }
             }
+
             override fun onScroll(firstVisibleItem: Int, dy: Int, scrollPosition: Int) {}
         }
 
@@ -66,16 +65,13 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
         swipeRefresh.setOnRefreshListener(this)
 
         // loads data just in case that fragment was not retained or it's first onViewCreated call
-        if(listAdapter!!.list.size == 0) loadData()
+        if (listAdapter!!.list.size == 0) presenter?.start()
 
         buttonTryAgain.setOnClickListener(this)
     }
 
     override fun loadData() {
-        if (context.isNetworkConnected())
-            this.presenter?.loadData()
-        else
-            this.presenter?.loadingDataError(R.string.error__no_internet_connection)
+        this.presenter?.loadData()
     }
 
     override fun setPresenter(presenter: ListContract.Presenter) {
@@ -118,7 +114,7 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id) {
+        when (v!!.id) {
             R.id.buttonTryAgain -> loadData()
         }
     }
