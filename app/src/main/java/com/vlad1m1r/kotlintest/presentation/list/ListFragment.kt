@@ -37,16 +37,15 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
     lateinit var endlessScrollListener: EndlessScrollListener
     var listAdapter: ListAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_list, container, false)
-        return view
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
-        // creates just in case that fragment was not retained or it's first onViewCreated call so listAdapter == null
+        // creates adapter in case that fragment was not retained or it's first onViewCreated call so listAdapter == null
         this.listAdapter = listAdapter ?: ListAdapter()
         recyclerView.adapter = listAdapter
 
@@ -64,7 +63,7 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
 
         swipeRefresh.setOnRefreshListener(this)
 
-        // loads data just in case that fragment was not retained or it's first onViewCreated call
+        // loads data in case that fragment was not retained or it's first onViewCreated call
         if (listAdapter!!.list.size == 0) presenter?.start()
 
         buttonTryAgain.setOnClickListener(this)
