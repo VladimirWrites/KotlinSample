@@ -22,7 +22,7 @@ import com.nhaarman.mockito_kotlin.whenever
 import com.vlad1m1r.kotlintest.data.ApiInterface
 import com.vlad1m1r.kotlintest.testutils.ITEM_PHOTO_LIST
 import com.vlad1m1r.kotlintest.testutils.PHOTO_DATA_OBSERVABLE
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 import org.junit.runner.RunWith
