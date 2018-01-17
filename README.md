@@ -1,6 +1,6 @@
 # KotlinSample
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/vlad1m1r990/KotlinSample/blob/master/LICENSE) 
-[![Kotlin](https://img.shields.io/badge/style-1.1.51-green.svg?style=flat&label=Kotlin)](https://kotlinlang.org) 
+[![Kotlin](https://img.shields.io/badge/style-1.2.20-green.svg?style=flat&label=Kotlin)](https://kotlinlang.org) 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-KotlinSample-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/5554)
 
 
@@ -14,7 +14,7 @@ About
 The app uses [JSONPlaceholder](https://jsonplaceholder.typicode.com) as a REST API.
 Communication with API is done using Retrofit together with RxJava2 Adapter.
 RxJava is used for all network related threading.
-The presentation layer is based on MVP architectural pattern. 
+The presentation layer is based on MVP architectural pattern.
 
 Contributing
 -------
