@@ -22,12 +22,13 @@ import android.view.ViewGroup
 import com.vlad1m1r.kotlintest.R
 import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
 import com.vlad1m1r.kotlintest.presentation.base.BaseAdapter
+import com.vlad1m1r.kotlintest.presentation.utils.ImageLoaderImpl
 
 class ListAdapter : BaseAdapter<ListViewHolder, ItemPhoto>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder? =
             when (viewType) {
-                R.layout.item_photo -> ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false))
+                R.layout.item_photo -> ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false), ImageLoaderImpl())
                 else -> null
             }
 
