@@ -17,14 +17,13 @@
 package com.vlad1m1r.kotlintest.data
 
 import com.vlad1m1r.kotlintest.BuildConfig
-
-import java.util.concurrent.TimeUnit
-
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 class ApiClient {
@@ -37,22 +36,34 @@ class ApiClient {
         private set
 
     init {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.HEADERS else HttpLoggingInterceptor.Level.NONE
+        val interceptor = getHttpLoggingInterceptor(BuildConfig.DEBUG)
+        val okHttpClient = getOkHttpClient(interceptor)
 
-        val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .build()
+        client = getRetrofit(okHttpClient)
 
-        client = Retrofit.Builder()
+        services = client.create(ApiInterface::class.java)
+    }
+
+    fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
                 .build()
+    }
 
-        services = client.create(ApiInterface::class.java)
+    fun getOkHttpClient(interceptor: Interceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build()
+    }
+
+    fun getHttpLoggingInterceptor(isDebug: Boolean): HttpLoggingInterceptor {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = if (isDebug) HttpLoggingInterceptor.Level.HEADERS else HttpLoggingInterceptor.Level.NONE
+        return interceptor
     }
 }
