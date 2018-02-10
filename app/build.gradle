@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'jacoco-android'
+apply plugin: 'jacoco'
 
 jacoco {
     toolVersion = '0.8.0'
@@ -72,7 +72,7 @@ dependencies {
     testImplementation 'com.google.truth:truth:0.39'
     testImplementation 'org.robolectric:robolectric:3.6.1'
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
