@@ -16,7 +16,6 @@
 
 package com.vlad1m1r.kotlintest.presentation.list
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 
 import com.vlad1m1r.kotlintest.R
@@ -28,11 +27,14 @@ class ListAdapter : BaseAdapter<ListViewHolder, ItemPhoto>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder? =
             when (viewType) {
-                R.layout.item_photo -> ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false), ImageLoaderImpl())
-                else -> null
+                R.layout.item_photo -> getViewHolder(parent)
+                else -> throw IllegalArgumentException("ListAdapter supports only R.layout.item_photo")
             }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) = holder.setPhoto(listOfData[position])
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int) = holder.setPhoto(list[position])
 
     override fun getItemViewType(position: Int): Int = R.layout.item_photo
+
+    fun getViewHolder(parent: ViewGroup) =
+            ListViewHolder(inflate(R.layout.item_photo, parent, false), ImageLoaderImpl())
 }

@@ -16,11 +16,15 @@
 
 package com.vlad1m1r.kotlintest.presentation.base
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 
 abstract class BaseAdapter<T : RecyclerView.ViewHolder, H> : RecyclerView.Adapter<T>() {
 
-    protected val listOfData: ArrayList<H> = ArrayList()
+    private val listOfData: ArrayList<H> = ArrayList()
 
     override fun getItemCount(): Int = listOfData.size
 
@@ -37,4 +41,10 @@ abstract class BaseAdapter<T : RecyclerView.ViewHolder, H> : RecyclerView.Adapte
         this.listOfData.addAll(list)
         notifyItemRangeChanged(oldSize, this.listOfData.size)
     }
+
+    fun getLayoutInflater(context: Context): LayoutInflater =
+            LayoutInflater.from(context)
+
+    fun inflate(resId: Int, parent: ViewGroup, attachToRoot: Boolean): View =
+            LayoutInflater.from(parent.context).inflate(resId, parent, attachToRoot)
 }
