@@ -26,23 +26,20 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
 import java.net.UnknownHostException
 
-@RunWith(MockitoJUnitRunner::class)
 class ListPresenterTest {
 
     @Rule
     @JvmField
     var testSchedulerRule = RxImmediateSchedulerRule()
 
-    val view = mock<ListContract.View>()
-    val getPhotos = mock<GetPhotos>()
-    val disposables = mock<CompositeDisposable>()
+    private val view = mock<ListContract.View>()
+    private val getPhotos = mock<GetPhotos>()
+    private val disposables = mock<CompositeDisposable>()
 
-    val presenter = ListPresenter(view, getPhotos, disposables)
-    val presenterMock = mock<ListPresenter>()
+    private val presenter = ListPresenter(view, getPhotos, disposables)
+    private val presenterMock = mock<ListPresenter>()
 
     @Test
     fun start() {

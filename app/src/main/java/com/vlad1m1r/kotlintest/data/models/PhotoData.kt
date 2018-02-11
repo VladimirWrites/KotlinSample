@@ -16,7 +16,7 @@
 
 package com.vlad1m1r.kotlintest.data.models
 
-class PhotoData(
+data class PhotoData(
         val albumId: Int = 0,
         val id: Int = 0,
         val title: String = "",
