@@ -27,7 +27,7 @@ ext {
     gsonVersion = '2.8.2'
     retrofitVersion = '2.3.0'
     rxAndroidVersion = '2.0.1'
-    rxJavaVersion = '2.1.0'
+    rxJavaVersion = '2.1.9'
     okhttp3LoggingInterceptor = '3.9.0'
-    glideVersion = '4.5.0'
+    glideVersion = '4.6.1'
 }

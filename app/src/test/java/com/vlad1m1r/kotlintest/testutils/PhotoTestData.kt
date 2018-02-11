@@ -20,13 +20,13 @@ import com.vlad1m1r.kotlintest.data.models.PhotoData
 import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
 import io.reactivex.Observable
 
-val PHOTO_DATA_1 = PhotoData(0, 0, "test1", "http://placehold.it/600/d32776")
-val PHOTO_DATA_2 = PhotoData(0, 0, "test2", "http://placehold.it/600/d32777")
-val PHOTO_DATA_3 = PhotoData(0, 0, "test3", "http://placehold.it/600/d32778")
+val PHOTO_DATA_1 = PhotoData(1, 11, "test1", "http://placehold.it/600/d32776", "test_url")
+val PHOTO_DATA_2 = PhotoData(2, 22, "test2", "http://placehold.it/600/d32777", "test_url")
+val PHOTO_DATA_3 = PhotoData(3, 33, "test3", "http://placehold.it/600/d32778", "test_url")
 
 val PHOTO_DATA_LIST = arrayListOf(PHOTO_DATA_1, PHOTO_DATA_2, PHOTO_DATA_3)
 
-val PHOTO_DATA_OBSERVABLE = Observable.just(PHOTO_DATA_LIST)
+val PHOTO_DATA_OBSERVABLE: Observable<ArrayList<PhotoData>> = Observable.just(PHOTO_DATA_LIST)
 
 val ITEM_PHOTO_1 = ItemPhoto(PHOTO_DATA_1.title, PHOTO_DATA_1.url)
 val ITEM_PHOTO_2 = ItemPhoto(PHOTO_DATA_2.title, PHOTO_DATA_2.url)

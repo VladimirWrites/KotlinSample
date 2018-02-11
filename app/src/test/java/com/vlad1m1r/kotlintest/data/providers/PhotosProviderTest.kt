@@ -16,28 +16,24 @@
 
 package com.vlad1m1r.kotlintest.data.providers
 
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import com.vlad1m1r.kotlintest.data.ApiInterface
 import com.vlad1m1r.kotlintest.testutils.ITEM_PHOTO_LIST
 import com.vlad1m1r.kotlintest.testutils.PHOTO_DATA_OBSERVABLE
-import org.junit.Assert.assertEquals
 import org.junit.Test
 
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
-
-@RunWith(MockitoJUnitRunner::class)
 class PhotosProviderTest {
 
-    val apiInterface = mock<ApiInterface>()
-    val photosProvider = PhotosProvider(apiInterface)
+    private val apiInterface = mock<ApiInterface>()
+    private val photosProvider = PhotosProvider(apiInterface)
 
     @Test
     fun getGetPhotos() {
         whenever(apiInterface.getPhotos(any(), any())).thenReturn(PHOTO_DATA_OBSERVABLE)
         val actual = photosProvider.getPhotos(0, 20).blockingFirst()
-        assertEquals(actual, ITEM_PHOTO_LIST)
+        assertThat(actual).containsExactlyElementsIn(ITEM_PHOTO_LIST)
     }
 }

@@ -22,16 +22,13 @@ import com.vlad1m1r.kotlintest.data.providers.PhotosProvider
 import com.vlad1m1r.kotlintest.testutils.ITEM_PHOTO_OBSERVABLE
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
 class GetPhotosTest {
 
-    val photosProvider = mock<PhotosProvider> {
+    private val photosProvider = mock<PhotosProvider> {
         on { getPhotos }.doReturn({ _, _ -> ITEM_PHOTO_OBSERVABLE })
     }
-    val getPhotos = GetPhotos(photosProvider.getPhotos)
+    private val getPhotos = GetPhotos(photosProvider.getPhotos)
 
     @Test
     fun getPhotos() {

@@ -36,24 +36,24 @@ class ApiClient {
         private set
 
     init {
-        val interceptor = getHttpLoggingInterceptor(BuildConfig.DEBUG)
-        val okHttpClient = getOkHttpClient(interceptor)
+        val interceptor = createHttpLoggingInterceptor(BuildConfig.DEBUG)
+        val okHttpClient = createOkHttpClient(interceptor)
 
-        client = getRetrofit(okHttpClient)
+        client = createRetrofit(BASE_URL, okHttpClient)
 
         services = client.create(ApiInterface::class.java)
     }
 
-    fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun createRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .build()
     }
 
-    fun getOkHttpClient(interceptor: Interceptor): OkHttpClient {
+    fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .connectTimeout(30, TimeUnit.SECONDS)
@@ -61,7 +61,7 @@ class ApiClient {
                 .build()
     }
 
-    fun getHttpLoggingInterceptor(isDebug: Boolean): HttpLoggingInterceptor {
+    fun createHttpLoggingInterceptor(isDebug: Boolean): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = if (isDebug) HttpLoggingInterceptor.Level.HEADERS else HttpLoggingInterceptor.Level.NONE
         return interceptor
