@@ -4,18 +4,18 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = '0.8.0'
+    toolVersion = Versions.jacoco
 }
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion Versions.compile_sdk
+    buildToolsVersion Versions.build_tools
     defaultConfig {
         applicationId "com.vlad1m1r.kotlintest"
-        minSdkVersion 15
-        targetSdkVersion 27
-        versionCode 100
-        versionName "1.0.0"
+        minSdkVersion Versions.min_sdk
+        targetSdkVersion Versions.target_sdk
+        versionCode Versions.version_code
+        versionName Versions.version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -66,31 +66,23 @@ task jacocoDebugReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'cre
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.11.0'
-    testImplementation "com.nhaarman:mockito-kotlin:1.5.0"
-    testImplementation 'com.google.truth:truth:0.39'
-    testImplementation 'org.robolectric:robolectric:3.6.1'
+    implementation Deps.kotlin_stdlib
+    implementation Deps.retrofit2
+    implementation Deps.retrofit2_gson_converter
+    implementation Deps.retrofit2_rxjava2_adapter
+    implementation Deps.gson
+    implementation Deps.appcompat_v7
+    implementation Deps.recyclerview_v7
+    implementation Deps.rxjava2
+    implementation Deps.rxandroid2
+    implementation Deps.logging_interceptor
+    implementation Deps.glide
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    implementation "com.google.code.gson:gson:$gsonVersion"
-
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
-
-    // RxJava
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3LoggingInterceptor"
-
-    // Glide
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    testImplementation Deps.junit
+    testImplementation Deps.mockito_core
+    testImplementation Deps.mockito_kotlin
+    testImplementation Deps.truth
+    testImplementation Deps.robolectric
 }
 repositories {
     mavenCentral()
