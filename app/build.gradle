@@ -31,15 +31,14 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
     testOptions {
-        unitTests.all {
-            jacoco {
-                includeNoLocationClasses = true
-            }
-        }
         unitTests {
             includeAndroidResources = true
         }
     }
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
 }
 
 task jacocoDebugReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
