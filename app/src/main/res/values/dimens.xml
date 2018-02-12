@@ -7,5 +7,6 @@
 
     <!-- elevations -->
     <dimen name="elevation__toolbar">4dp</dimen>
+    <dimen name="image_size">100dp</dimen>
 
 </resources>
