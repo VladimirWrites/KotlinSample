@@ -28,8 +28,6 @@ import java.util.*
 
 class ListPresenter(private val view: ListContract.View, private val getPhotos: GetPhotos, private val disposables: CompositeDisposable) : ListContract.Presenter {
 
-    val LIMIT = 20
-
     init {
         this.view.setPresenter(this)
     }
@@ -46,7 +44,7 @@ class ListPresenter(private val view: ListContract.View, private val getPhotos: 
         if (offset == 0) view.showProgress(true)
         disposables.add(
                 getPhotos
-                        .getPhotos(offset, LIMIT)
+                        .getPhotos(offset)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .single(ArrayList())

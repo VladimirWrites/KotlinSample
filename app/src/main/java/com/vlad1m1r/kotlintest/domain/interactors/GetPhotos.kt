@@ -19,7 +19,9 @@ package com.vlad1m1r.kotlintest.domain.interactors
 import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
 import io.reactivex.Observable
 
+internal val LIMIT = 20
+
 class GetPhotos(private var photosProvider: (offset: Int, limit: Int) -> Observable<ArrayList<ItemPhoto>>) {
-    fun getPhotos(offset: Int, limit: Int): Observable<ArrayList<ItemPhoto>>
+    fun getPhotos(offset: Int, limit: Int = LIMIT): Observable<ArrayList<ItemPhoto>>
             = photosProvider(offset, limit)
 }
