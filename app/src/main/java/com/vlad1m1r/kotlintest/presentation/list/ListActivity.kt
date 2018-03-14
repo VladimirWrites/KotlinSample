@@ -57,7 +57,7 @@ class ListActivity : BaseActivity() {
     fun getPresenter(fragment: ListFragment): ListContract.Presenter {
         val apiInterface: ApiInterface = ApiClient().services
         return ListPresenter(fragment as ListContract.View,
-                GetPhotos(PhotosProvider(apiInterface).getPhotos),
+                GetPhotos(PhotosProvider(apiInterface)::getPhotos),
                 CompositeDisposable())
     }
 }

@@ -16,6 +16,7 @@
 
 package com.vlad1m1r.kotlintest.domain.interactors
 
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.vlad1m1r.kotlintest.data.providers.PhotosProvider
@@ -26,9 +27,9 @@ import org.junit.Test
 class GetPhotosTest {
 
     private val photosProvider = mock<PhotosProvider> {
-        on { getPhotos }.doReturn({ _, _ -> ITEM_PHOTO_OBSERVABLE })
+        on { getPhotos(any(), any()) }.doReturn(ITEM_PHOTO_OBSERVABLE)
     }
-    private val getPhotos = GetPhotos(photosProvider.getPhotos)
+    private val getPhotos = GetPhotos(photosProvider::getPhotos)
 
     @Test
     fun getPhotos() {

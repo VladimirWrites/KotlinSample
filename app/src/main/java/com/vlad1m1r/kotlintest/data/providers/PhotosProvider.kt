@@ -23,10 +23,7 @@ import io.reactivex.Observable
 
 class PhotosProvider(private val apiInterface: ApiInterface) {
 
-    val getPhotos: (offset: Int, limit: Int) -> Observable<ArrayList<ItemPhoto>>
-            = { offset, limit -> getPhotos(offset, limit) }
-
-    private fun getPhotos(offset: Int, limit: Int): Observable<ArrayList<ItemPhoto>> {
+    fun getPhotos(offset: Int, limit: Int): Observable<ArrayList<ItemPhoto>> {
         return this.apiInterface
                 .getPhotos(offset, limit)
                 .map({ list: ArrayList<PhotoData> -> formatData(list) })
