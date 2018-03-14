@@ -17,21 +17,28 @@
 package com.vlad1m1r.kotlintest.presentation.list
 
 import android.os.Bundle
+import com.vlad1m1r.kotlintest.MyApplication
 import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.data.ApiClient
 import com.vlad1m1r.kotlintest.data.ApiInterface
 import com.vlad1m1r.kotlintest.data.providers.PhotosProvider
 import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
 import com.vlad1m1r.kotlintest.presentation.base.BaseActivity
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 class ListActivity : BaseActivity() {
+
+    @Inject
+    lateinit var apiInterface: ApiInterface
 
     var presenter: ListContract.Presenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
+
+        (application as MyApplication)
+                .dataComponent?.inject(this)
 
         var fragment = supportFragmentManager.findFragmentById(R.id.content_frame)
 
@@ -55,7 +62,6 @@ class ListActivity : BaseActivity() {
     fun getFragment(): ListFragment = ListFragment.newInstance()
 
     fun getPresenter(fragment: ListFragment): ListContract.Presenter {
-        val apiInterface: ApiInterface = ApiClient().services
         return ListPresenter(fragment as ListContract.View,
                 GetPhotos(PhotosProvider(apiInterface)::getPhotos),
                 CompositeDisposable())

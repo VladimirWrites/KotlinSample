@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'jacoco'
 
 jacoco {
@@ -76,6 +77,8 @@ dependencies {
     implementation Deps.rxandroid2
     implementation Deps.logging_interceptor
     implementation Deps.glide
+    implementation Deps.dagger2
+    kapt Deps.dagger2_compiler
 
     testImplementation Deps.junit
     testImplementation Deps.mockito_core

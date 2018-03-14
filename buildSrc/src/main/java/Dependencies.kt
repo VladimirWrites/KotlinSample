@@ -23,6 +23,7 @@ object Versions {
     val logging_interceptor = "3.9.0"
     val glide = "4.6.1"
     val kotlin = "1.2.21"
+    val dagger2 = "2.15"
 
     val junit = "4.12"
     val mockito_core = "2.11.0"
@@ -55,6 +56,8 @@ object Deps {
     val rxandroid2 = "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid2}"
     val logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logging_interceptor}"
     val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    val dagger2 = "com.google.dagger:dagger:${Versions.dagger2}"
+    val dagger2_compiler = "com.google.dagger:dagger-compiler:${Versions.dagger2}"
 
     val junit = "junit:junit:${Versions.junit}"
     val mockito_core = "org.mockito:mockito-core:${Versions.mockito_core}"
