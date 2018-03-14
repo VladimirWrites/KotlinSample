@@ -19,12 +19,13 @@ package com.vlad1m1r.kotlintest.domain.interactors
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
 import com.vlad1m1r.kotlintest.data.providers.PhotosProvider
 import com.vlad1m1r.kotlintest.testutils.ITEM_PHOTO_OBSERVABLE
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class GetPhotosTest {
+class GetPhotosShould {
 
     private val photosProvider = mock<PhotosProvider> {
         on { getPhotos(any(), any()) }.doReturn(ITEM_PHOTO_OBSERVABLE)
@@ -34,5 +35,11 @@ class GetPhotosTest {
     @Test
     fun getPhotos() {
         assertEquals(getPhotos.getPhotos(0, 20), ITEM_PHOTO_OBSERVABLE)
+    }
+
+    @Test
+    fun callPhotosProviderWithDefaultLimit() {
+        getPhotos.getPhotos(0)
+        verify(photosProvider).getPhotos(0, LIMIT)
     }
 }
