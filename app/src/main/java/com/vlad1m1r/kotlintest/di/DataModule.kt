@@ -18,10 +18,11 @@ package com.vlad1m1r.kotlintest.di
 
 import com.vlad1m1r.kotlintest.data.ApiClient
 import com.vlad1m1r.kotlintest.data.ApiInterface
+import com.vlad1m1r.kotlintest.data.providers.PhotosProvider
+import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
-
 
 @Module
 internal class DataModule {
@@ -30,5 +31,17 @@ internal class DataModule {
     @Singleton
     fun provideApi(): ApiInterface {
         return ApiClient().services
+    }
+
+    @Provides
+    @Singleton
+    fun providePhotosProvider(apiInterface: ApiInterface): PhotosProvider {
+        return PhotosProvider(apiInterface)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetPhotos(photosProvider: PhotosProvider): GetPhotos {
+        return GetPhotos(photosProvider::getPhotos)
     }
 }

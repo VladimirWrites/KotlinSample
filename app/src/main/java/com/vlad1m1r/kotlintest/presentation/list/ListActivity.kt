@@ -19,8 +19,6 @@ package com.vlad1m1r.kotlintest.presentation.list
 import android.os.Bundle
 import com.vlad1m1r.kotlintest.MyApplication
 import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.data.ApiInterface
-import com.vlad1m1r.kotlintest.data.providers.PhotosProvider
 import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
 import com.vlad1m1r.kotlintest.presentation.base.BaseActivity
 import io.reactivex.disposables.CompositeDisposable
@@ -29,7 +27,7 @@ import javax.inject.Inject
 class ListActivity : BaseActivity() {
 
     @Inject
-    lateinit var apiInterface: ApiInterface
+    lateinit var getPhotos: GetPhotos
 
     var presenter: ListContract.Presenter? = null
 
@@ -63,7 +61,7 @@ class ListActivity : BaseActivity() {
 
     fun getPresenter(fragment: ListFragment): ListContract.Presenter {
         return ListPresenter(fragment as ListContract.View,
-                GetPhotos(PhotosProvider(apiInterface)::getPhotos),
+                getPhotos,
                 CompositeDisposable())
     }
 }
