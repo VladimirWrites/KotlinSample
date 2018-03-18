@@ -25,7 +25,7 @@ import com.vlad1m1r.kotlintest.presentation.utils.ImageLoaderImpl
 
 class ListAdapter : BaseAdapter<ListViewHolder, ItemPhoto>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder? =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder =
             when (viewType) {
                 R.layout.item_photo -> getViewHolder(parent)
                 else -> throw IllegalArgumentException("ListAdapter supports only R.layout.item_photo")
