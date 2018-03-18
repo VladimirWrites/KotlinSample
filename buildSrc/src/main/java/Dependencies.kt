@@ -15,14 +15,14 @@
  */
 
 object Versions {
-    val support_lib = "27.0.2"
+    val support_lib = "27.1.0"
     val gson = "2.8.2"
-    val retrofit2 = "2.3.0"
-    val rxandroid2 = "2.0.1"
-    val rxjava2 = "2.1.9"
+    val retrofit2 = "2.4.0"
+    val rxandroid2 = "2.0.2"
+    val rxjava2 = "2.1.10"
     val logging_interceptor = "3.9.0"
     val glide = "4.6.1"
-    val kotlin = "1.2.21"
+    val kotlin = "1.2.30"
     val dagger2 = "2.15"
 
     val junit = "4.12"
