@@ -31,7 +31,7 @@ object Versions {
     val truth = "0.39"
     val robolectric = "3.6.1"
 
-    val gradle_android = "3.0.1"
+    val gradle_android = "3.1.1"
 
     val jacoco = "0.8.0"
 

@@ -1,9 +1,9 @@
 # KotlinSample
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/vlad1m1r990/KotlinSample/blob/master/LICENSE) 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/VladimirWrites/KotlinSample/blob/master/LICENSE) 
 [![Kotlin](https://img.shields.io/badge/style-1.2.30-green.svg?style=flat&label=Kotlin)](https://kotlinlang.org) 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-KotlinSample-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/5554)
-[![codecov](https://codecov.io/gh/vlad1m1r990/KotlinSample/branch/master/graph/badge.svg)](https://codecov.io/gh/vlad1m1r990/KotlinSample)
-[![Build Status](https://travis-ci.org/vlad1m1r990/KotlinSample.svg?branch=master)](https://travis-ci.org/vlad1m1r990/KotlinSample)
+[![codecov](https://codecov.io/gh/VladimirWrites/KotlinSample/branch/master/graph/badge.svg)](https://codecov.io/gh/VladimirWrites/KotlinSample)
+[![Build Status](https://travis-ci.org/VladimirWrites/KotlinSample.svg?branch=master)](https://travis-ci.org/VladimirWrites/KotlinSample)
 
 Simple Android app written in Kotlin
 
@@ -21,12 +21,12 @@ Contributing
 -------
 
 Want to contribute? You are welcome! 
-Note that all pull request should go to [`development`](https://github.com/vlad1m1r990/KotlinSample/tree/development) branch.
+Note that all pull request should go to [`development`](https://github.com/VladimirWrites/KotlinSample/tree/development) branch.
 
 Credits
 -------
 
-+ [Vladimir Jovanovic](https://github.com/vlad1m1r990)
++ [Vladimir Jovanovic](https://github.com/VladimirWrites)
 
 License
 -------
