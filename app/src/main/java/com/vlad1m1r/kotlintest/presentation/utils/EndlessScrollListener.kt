@@ -37,10 +37,10 @@ abstract class EndlessScrollListener(layoutManager: RecyclerView.LayoutManager) 
         }
     }
 
-    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
 
-        visibleItemCount = recyclerView!!.childCount
+        visibleItemCount = recyclerView.childCount
 
         // End has been reached
 

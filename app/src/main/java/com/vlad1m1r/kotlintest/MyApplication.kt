@@ -17,24 +17,13 @@
 package com.vlad1m1r.kotlintest
 
 import android.app.Application
-import com.vlad1m1r.kotlintest.di.DaggerDataComponent
-import com.vlad1m1r.kotlintest.di.DataComponent
-import com.vlad1m1r.kotlintest.di.DataModule
+import com.vlad1m1r.kotlintest.di.dataModule
+import org.koin.android.ext.android.startKoin
 
 class MyApplication : Application() {
-    internal var dataComponent: DataComponent? = null
-        private set
 
     override fun onCreate() {
         super.onCreate()
-        dataComponent = createDataComponent()
+        startKoin(this, listOf(dataModule))
     }
-
-    private fun createDataComponent(): DataComponent {
-        return DaggerDataComponent
-                .builder()
-                .dataModule(DataModule())
-                .build()
-    }
-
 }

@@ -17,31 +17,14 @@
 package com.vlad1m1r.kotlintest.di
 
 import com.vlad1m1r.kotlintest.data.ApiClient
-import com.vlad1m1r.kotlintest.data.ApiInterface
 import com.vlad1m1r.kotlintest.data.providers.PhotosProvider
 import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
+import io.reactivex.Observable
+import org.koin.dsl.module.module
 
-@Module
-internal class DataModule {
-
-    @Provides
-    @Singleton
-    fun provideApi(): ApiInterface {
-        return ApiClient().services
-    }
-
-    @Provides
-    @Singleton
-    fun providePhotosProvider(apiInterface: ApiInterface): PhotosProvider {
-        return PhotosProvider(apiInterface)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetPhotos(photosProvider: PhotosProvider): GetPhotos {
-        return GetPhotos(photosProvider::getPhotos)
-    }
+val dataModule = module {
+    single { ApiClient().services }
+    single<(offset: Int, limit: Int) -> Observable<ArrayList<ItemPhoto>>> { PhotosProvider(get())::getPhotos }
+    single { GetPhotos(get()) }
 }

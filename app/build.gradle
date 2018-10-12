@@ -77,8 +77,7 @@ dependencies {
     implementation Deps.rxandroid2
     implementation Deps.logging_interceptor
     implementation Deps.glide
-    implementation Deps.dagger2
-    kapt Deps.dagger2_compiler
+    implementation Deps.koin
 
     testImplementation Deps.junit
     testImplementation Deps.mockito_core

@@ -49,7 +49,7 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
         this.listAdapter = listAdapter ?: ListAdapter()
         recyclerView.adapter = listAdapter
 
-        this.endlessScrollListener = object : EndlessScrollListener(recyclerView.layoutManager) {
+        this.endlessScrollListener = object : EndlessScrollListener(recyclerView.layoutManager!!) {
             override fun onLoadMore(currentPage: Int, totalItemCount: Int) {
                 if (totalItemCount > 1) {
                     presenter!!.loadData(totalItemCount)

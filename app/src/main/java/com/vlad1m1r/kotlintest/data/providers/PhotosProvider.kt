@@ -26,7 +26,7 @@ class PhotosProvider(private val apiInterface: ApiInterface) {
     fun getPhotos(offset: Int, limit: Int): Observable<ArrayList<ItemPhoto>> {
         return this.apiInterface
                 .getPhotos(offset, limit)
-                .map({ list: ArrayList<PhotoData> -> formatData(list) })
+                .map { list: ArrayList<PhotoData> -> formatData(list) }
     }
 
     private fun formatData(photos: List<PhotoData>): ArrayList<ItemPhoto> = photos.transform { ItemPhoto(it.title, it.url) }

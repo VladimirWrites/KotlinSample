@@ -17,26 +17,21 @@
 package com.vlad1m1r.kotlintest.presentation.list
 
 import android.os.Bundle
-import com.vlad1m1r.kotlintest.MyApplication
 import com.vlad1m1r.kotlintest.R
 import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
 import com.vlad1m1r.kotlintest.presentation.base.BaseActivity
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class ListActivity : BaseActivity() {
 
-    @Inject
-    lateinit var getPhotos: GetPhotos
+    private val getPhotos: GetPhotos by inject()
 
     var presenter: ListContract.Presenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
-
-        (application as MyApplication)
-                .dataComponent?.inject(this)
 
         var fragment = supportFragmentManager.findFragmentById(R.id.content_frame)
 
