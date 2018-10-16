@@ -16,7 +16,7 @@
 
 package com.vlad1m1r.kotlintest.presentation.list
 
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
+import com.vlad1m1r.kotlintest.domain.models.PhotoData
 import com.vlad1m1r.kotlintest.presentation.base.IBasePresenter
 import com.vlad1m1r.kotlintest.presentation.base.IViewError
 import java.util.*
@@ -30,7 +30,7 @@ interface ListContract {
     interface View : IViewError {
         fun setPresenter(presenter: Presenter)
         fun loadData()
-        fun showList(list: ArrayList<ItemPhoto>)
-        fun addList(list: ArrayList<ItemPhoto>)
+        fun showList(list: List<PhotoData>)
+        fun addList(list: List<PhotoData>)
     }
 }

@@ -25,7 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
+import com.vlad1m1r.kotlintest.domain.models.PhotoData
 import com.vlad1m1r.kotlintest.presentation.base.BaseFragment
 import com.vlad1m1r.kotlintest.presentation.utils.EndlessScrollListener
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -77,11 +77,11 @@ class ListFragment : BaseFragment<ListContract.Presenter>(), ListContract.View, 
         this.presenter = presenter
     }
 
-    override fun showList(list: ArrayList<ItemPhoto>) {
+    override fun showList(list: List<PhotoData>) {
         (recyclerView.adapter as ListAdapter).list = list
     }
 
-    override fun addList(list: ArrayList<ItemPhoto>) {
+    override fun addList(list: List<PhotoData>) {
         (recyclerView.adapter as ListAdapter).addList(list)
     }
 

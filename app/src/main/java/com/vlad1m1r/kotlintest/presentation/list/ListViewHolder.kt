@@ -17,16 +17,15 @@
 package com.vlad1m1r.kotlintest.presentation.list
 
 import android.view.View
-import android.widget.TextView
-import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
+import com.vlad1m1r.kotlintest.domain.models.PhotoData
 import com.vlad1m1r.kotlintest.presentation.base.BaseViewHolder
 import com.vlad1m1r.kotlintest.presentation.utils.ImageLoader
+import kotlinx.android.synthetic.main.item_photo.view.*
 
 class ListViewHolder(itemView: View, private val imageLoader: ImageLoader) : BaseViewHolder(itemView) {
 
-    fun setPhoto(itemPhoto: ItemPhoto) {
-        itemView.findViewById<TextView>(R.id.textName).text = itemPhoto.name
-        imageLoader.load(itemView.context, itemPhoto.url, itemView.findViewById(R.id.imageView))
+    fun setPhoto(itemPhoto: PhotoData) {
+        itemView.textName.text = itemPhoto.name
+        imageLoader.load(itemView.context, itemPhoto.url, itemView.imageView)
     }
 }

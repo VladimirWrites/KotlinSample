@@ -20,13 +20,12 @@ import android.os.Bundle
 import com.vlad1m1r.kotlintest.R
 import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
 import com.vlad1m1r.kotlintest.presentation.base.BaseActivity
-import io.reactivex.disposables.CompositeDisposable
+import com.vlad1m1r.kotlintest.presentation.utils.CoroutineContextProvider
+import com.vlad1m1r.kotlintest.presentation.utils.CoroutineDisposable
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 
 class ListActivity : BaseActivity() {
-
-    private val getPhotos: GetPhotos by inject()
-
     var presenter: ListContract.Presenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +54,14 @@ class ListActivity : BaseActivity() {
     fun getFragment(): ListFragment = ListFragment.newInstance()
 
     fun getPresenter(fragment: ListFragment): ListContract.Presenter {
+
+        val getPhotos: GetPhotos = get()
+        val coroutineContextProvider: CoroutineContextProvider = get()
+        val coroutineDisposable: CoroutineDisposable = get()
+
         return ListPresenter(fragment as ListContract.View,
                 getPhotos,
-                CompositeDisposable())
+                coroutineDisposable,
+                coroutineContextProvider)
     }
 }

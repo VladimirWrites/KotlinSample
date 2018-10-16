@@ -17,16 +17,19 @@
 package com.vlad1m1r.kotlintest.presentation.list
 
 import com.vlad1m1r.kotlintest.R
+import com.vlad1m1r.kotlintest.domain.PhotoState
 import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import com.vlad1m1r.kotlintest.presentation.utils.CoroutineContextProvider
+import com.vlad1m1r.kotlintest.presentation.utils.CoroutineDisposable
+import kotlinx.coroutines.experimental.*
 import java.net.UnknownHostException
 import java.util.*
 
-class ListPresenter(private val view: ListContract.View, private val getPhotos: GetPhotos, private val disposables: CompositeDisposable) : ListContract.Presenter {
+class ListPresenter(
+        private val view: ListContract.View,
+        private val getPhotos: GetPhotos,
+        private val disposables: CoroutineDisposable,
+        private val coroutineContextProvider: CoroutineContextProvider) : ListContract.Presenter {
 
     init {
         this.view.setPresenter(this)
@@ -37,43 +40,40 @@ class ListPresenter(private val view: ListContract.View, private val getPhotos: 
     }
 
     override fun onDestroy() {
-        disposables.clear()
+        disposables.dispose()
     }
 
     override fun loadData(offset: Int) {
+        disposables.add(loadDataAsync(offset))
+    }
+
+    private fun loadDataAsync(offset: Int) = GlobalScope.launch(coroutineContextProvider.Main) {
         if (offset == 0) view.showProgress(true)
-        disposables.add(
-                getPhotos
-                        .getPhotos(offset)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .single(ArrayList())
-                        .subscribeWith(
-                                object : DisposableSingleObserver<ArrayList<ItemPhoto>>() {
-                                    override fun onSuccess(photos: ArrayList<ItemPhoto>) {
-                                        if (photos.size > 0) {
-                                            if (offset > 0) {
-                                                view.addList(photos)
-                                            } else {
-                                                view.showList(photos)
-                                                view.showProgress(false)
-                                            }
+        val photoState = GlobalScope.async(coroutineContextProvider.IO) {
+            getPhotos.getPhotos(offset)
+        }.await()
 
-                                        } else {
-                                            view.showEmptyView()
-                                        }
-                                    }
-
-                                    override fun onError(e: Throwable) {
-                                        view.showList(ArrayList())
-                                        when (e) {
-                                            is UnknownHostException -> view.showError(R.string.error__check_internet_connection)
-                                            else -> view.showError(R.string.error__request_error)
-                                        }
-                                    }
-
-                                }
-                        )
-        )
+        when (photoState) {
+            is PhotoState.Data -> {
+                if (photoState.data.isNotEmpty()) {
+                    if (offset > 0) {
+                        view.addList(photoState.data)
+                    } else {
+                        view.showList(photoState.data)
+                        view.showProgress(false)
+                    }
+                } else {
+                    view.showEmptyView()
+                    view.showProgress(false)
+                }
+            }
+            is PhotoState.Error -> {
+                view.showList(ArrayList())
+                when (photoState.exception) {
+                    is UnknownHostException -> view.showError(R.string.error__check_internet_connection)
+                    else -> view.showError(R.string.error__request_error)
+                }
+            }
+        }
     }
 }

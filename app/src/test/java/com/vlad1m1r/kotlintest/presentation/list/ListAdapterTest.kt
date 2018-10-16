@@ -18,9 +18,9 @@ package com.vlad1m1r.kotlintest.presentation.list
 
 import android.view.ViewGroup
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockitokotlin2.*
 import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
+import com.vlad1m1r.kotlintest.domain.models.PhotoData
 import org.junit.Test
 import java.util.*
 
@@ -44,8 +44,8 @@ class ListAdapterTest {
     @Test
     fun onBindViewHolder() {
         val listViewHolder = mock<ListViewHolder>()
-        val itemPhoto = ItemPhoto("name", "url")
-        val list = mock<ArrayList<ItemPhoto>>()
+        val itemPhoto = PhotoData("name", "url")
+        val list = mock<ArrayList<PhotoData>>()
         doReturn(list).whenever(listAdapter).list
         doReturn(itemPhoto).whenever(list)[any()]
 

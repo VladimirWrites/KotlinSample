@@ -16,15 +16,16 @@
 
 package com.vlad1m1r.kotlintest.data
 
-import com.vlad1m1r.kotlintest.data.models.PhotoData
+import com.vlad1m1r.kotlintest.data.models.Photo
+import kotlinx.coroutines.experimental.Deferred
 
-import io.reactivex.Observable
+
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiInterface {
 
     @GET("photos")
-    fun getPhotos(@Query("_start") offset: Int, @Query("_limit") limit: Int): Observable<ArrayList<PhotoData>>
+    fun getPhotos(@Query("_start") offset: Int, @Query("_limit") limit: Int): Deferred<List<Photo>>
 
 }

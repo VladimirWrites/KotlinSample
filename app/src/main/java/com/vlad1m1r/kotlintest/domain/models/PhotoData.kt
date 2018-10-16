@@ -16,4 +16,4 @@
 
 package com.vlad1m1r.kotlintest.domain.models
 
-data class ItemPhoto(val name: String, val url: String)
+data class PhotoData(val name: String, val url: String)

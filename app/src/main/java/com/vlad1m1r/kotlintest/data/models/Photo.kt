@@ -16,10 +16,15 @@
 
 package com.vlad1m1r.kotlintest.data.models
 
-data class PhotoData(
+import com.vlad1m1r.kotlintest.domain.Data
+import com.vlad1m1r.kotlintest.domain.models.PhotoData
+
+data class Photo(
         val albumId: Int = 0,
         val id: Int = 0,
         val title: String = "",
         val url: String = "",
         val thumbnailUrl: String = ""
-)
+): Data<PhotoData> {
+    override fun getData() = PhotoData(title, url)
+}

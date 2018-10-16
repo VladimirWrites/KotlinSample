@@ -69,15 +69,15 @@ dependencies {
     implementation Deps.kotlin_stdlib
     implementation Deps.retrofit2
     implementation Deps.retrofit2_gson_converter
-    implementation Deps.retrofit2_rxjava2_adapter
+    implementation Deps.retrofit2_coroutines_adapter
     implementation Deps.gson
     implementation Deps.appcompat_v7
     implementation Deps.recyclerview_v7
-    implementation Deps.rxjava2
-    implementation Deps.rxandroid2
     implementation Deps.logging_interceptor
     implementation Deps.glide
     implementation Deps.koin
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.30.2'
 
     testImplementation Deps.junit
     testImplementation Deps.mockito_core

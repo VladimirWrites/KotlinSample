@@ -16,12 +16,27 @@
 
 package com.vlad1m1r.kotlintest.domain.interactors
 
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
-import io.reactivex.Observable
+import com.vlad1m1r.kotlintest.domain.Data
+import com.vlad1m1r.kotlintest.domain.PhotoState
+import com.vlad1m1r.kotlintest.domain.models.PhotoData
+import kotlinx.coroutines.experimental.Deferred
+import java.lang.Exception
 
 internal const val LIMIT = 20
 
-class GetPhotos(private var photosProvider: (offset: Int, limit: Int) -> Observable<ArrayList<ItemPhoto>>) {
-    fun getPhotos(offset: Int, limit: Int = LIMIT): Observable<ArrayList<ItemPhoto>>
-            = photosProvider(offset, limit)
+interface IPhotosProvider {
+    fun getPhotos(offset: Int, limit: Int): Deferred<List<Data<PhotoData>>>
+}
+
+class GetPhotos(private var photosProvider: IPhotosProvider) {
+    suspend fun getPhotos(offset: Int, limit: Int = LIMIT): PhotoState {
+        return try {
+            val data = photosProvider.getPhotos(offset, limit)
+                    .await()
+                    .map { it.getData() }
+            PhotoState.Data(data)
+        } catch (e:Exception) {
+            PhotoState.Error(e)
+        }
+    }
 }

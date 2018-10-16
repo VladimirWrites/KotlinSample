@@ -28,7 +28,7 @@ abstract class BaseAdapter<T : RecyclerView.ViewHolder, H> : RecyclerView.Adapte
 
     override fun getItemCount(): Int = listOfData.size
 
-    var list: ArrayList<H>
+    var list: List<H>
         get() = this.listOfData
         set(list) {
             this.listOfData.clear()
@@ -36,7 +36,7 @@ abstract class BaseAdapter<T : RecyclerView.ViewHolder, H> : RecyclerView.Adapte
             notifyDataSetChanged()
         }
 
-    fun addList(list: ArrayList<H>) {
+    fun addList(list: List<H>) {
         val oldSize: Int = this.listOfData.size
         this.listOfData.addAll(list)
         notifyItemRangeChanged(oldSize, this.listOfData.size)

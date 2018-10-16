@@ -16,15 +16,47 @@
 
 package com.vlad1m1r.kotlintest.di
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
+import com.vlad1m1r.kotlintest.BuildConfig
 import com.vlad1m1r.kotlintest.data.ApiClient
+import com.vlad1m1r.kotlintest.data.ApiInterface
 import com.vlad1m1r.kotlintest.data.providers.PhotosProvider
 import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
-import io.reactivex.Observable
+import com.vlad1m1r.kotlintest.domain.interactors.IPhotosProvider
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
+const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
 val dataModule = module {
-    single { ApiClient().services }
-    single<(offset: Int, limit: Int) -> Observable<ArrayList<ItemPhoto>>> { PhotosProvider(get())::getPhotos }
-    single { GetPhotos(get()) }
+
+    single<Interceptor> {
+        HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.HEADERS else HttpLoggingInterceptor.Level.NONE
+        }
+    }
+
+    single {
+        OkHttpClient.Builder()
+                .addInterceptor(get())
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build()
+    }
+
+    single {
+        Retrofit.Builder()
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BASE_URL)
+                .client(get())
+                .build()
+    }
+
+    single { ApiClient(get(), ApiInterface::class.java).services }
 }

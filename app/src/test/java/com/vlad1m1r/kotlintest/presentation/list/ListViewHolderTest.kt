@@ -17,37 +17,31 @@
 package com.vlad1m1r.kotlintest.presentation.list
 
 import android.content.Context
+import android.support.v7.widget.AppCompatImageView
+import android.support.v7.widget.AppCompatTextView
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
-import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.vlad1m1r.kotlintest.domain.models.PhotoData
 import com.vlad1m1r.kotlintest.presentation.utils.ImageLoader
-import org.junit.Before
+import kotlinx.android.synthetic.main.item_photo.view.*
 import org.junit.Test
 
 class ListViewHolderTest {
 
     private val context = mock<Context>()
-    private val imageView = mock<ImageView>()
-    private val textView = mock<TextView>()
+    private val imageView = mock<AppCompatImageView>()
+    private val textView = mock<AppCompatTextView>()
 
-    private val itemView = mock<View>()
-    private val imageLoader = mock<ImageLoader>()
-
-    private val listViewHolder = ListViewHolder(itemView, imageLoader)
-
-    private val itemPhoto = ItemPhoto("name", "url")
-
-    @Before
-    fun setUp() {
-        whenever(itemView.context).thenReturn(context)
-        whenever(itemView.findViewById<TextView>(R.id.textName)).thenReturn(textView)
-        whenever(itemView.findViewById<ImageView>(R.id.imageView)).thenReturn(imageView)
+    private val itemView = mock<View> {
+        on { context } doReturn context
+        on { textName } doReturn textView
+        on { imageView } doReturn imageView
     }
+    private val imageLoader = mock<ImageLoader>()
+    private val listViewHolder = ListViewHolder(itemView, imageLoader)
+    private val itemPhoto = PhotoData("name", "url")
 
     @Test
     fun setPhoto() {

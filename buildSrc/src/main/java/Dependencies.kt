@@ -18,23 +18,21 @@ object Versions {
     val support_lib = "28.0.0"
     val gson = "2.8.5"
     val retrofit2 = "2.4.0"
-    val rxandroid2 = "2.0.2"
-    val rxjava2 = "2.1.10"
     val logging_interceptor = "3.9.0"
-    val glide = "4.6.1"
+    val glide = "4.8.0"
     val kotlin = "1.2.71"
 
     val koin = "1.0.1"
 
     val junit = "4.12"
-    val mockito_core = "2.11.0"
-    val mockito_kotlin = "1.5.0"
-    val truth = "0.39"
-    val robolectric = "3.6.1"
+    val mockito_core = "2.23.0"
+    val mockito_kotlin = "2.0.0-RC3"
+    val truth = "0.42"
+    val robolectric = "3.8"
 
     val gradle_android = "3.2.1"
 
-    val jacoco = "0.8.0"
+    val jacoco = "0.8.2"
 
     val min_sdk = 21
     val target_sdk = 28
@@ -43,24 +41,23 @@ object Versions {
 
     val version_code = 100
     val version_name = "1.0.0"
+    val retrofit2_coroutines_adapter = "1.0.0"
 }
 
 object Deps {
     val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"
     val retrofit2_gson_converter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit2}"
-    val retrofit2_rxjava2_adapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit2}"
+    val retrofit2_coroutines_adapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:${Versions.retrofit2_coroutines_adapter}"
     val gson = "com.google.code.gson:gson:${Versions.gson}"
     val appcompat_v7 = "com.android.support:appcompat-v7:${Versions.support_lib}"
     val recyclerview_v7 = "com.android.support:recyclerview-v7:${Versions.support_lib}"
-    val rxjava2 = "io.reactivex.rxjava2:rxjava:${Versions.rxjava2}"
-    val rxandroid2 = "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid2}"
     val logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.logging_interceptor}"
     val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
 
     val junit = "junit:junit:${Versions.junit}"
     val mockito_core = "org.mockito:mockito-core:${Versions.mockito_core}"
-    val mockito_kotlin = "com.nhaarman:mockito-kotlin:${Versions.mockito_kotlin}"
+    val mockito_kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockito_kotlin}"
     val truth = "com.google.truth:truth:${Versions.truth}"
     val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
 

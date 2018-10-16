@@ -17,20 +17,8 @@
 package com.vlad1m1r.kotlintest.data.providers
 
 import com.vlad1m1r.kotlintest.data.ApiInterface
-import com.vlad1m1r.kotlintest.data.models.PhotoData
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
-import io.reactivex.Observable
+import com.vlad1m1r.kotlintest.domain.interactors.IPhotosProvider
 
-class PhotosProvider(private val apiInterface: ApiInterface) {
-
-    fun getPhotos(offset: Int, limit: Int): Observable<ArrayList<ItemPhoto>> {
-        return this.apiInterface
-                .getPhotos(offset, limit)
-                .map { list: ArrayList<PhotoData> -> formatData(list) }
-    }
-
-    private fun formatData(photos: List<PhotoData>): ArrayList<ItemPhoto> = photos.transform { ItemPhoto(it.title, it.url) }
-
-    private fun <T, K> List<T>.transform(transformation: (T) -> K): ArrayList<K> =
-            this.mapTo(ArrayList(this.size)) { transformation(it) }
+class PhotosProvider(private val apiInterface: ApiInterface): IPhotosProvider {
+    override fun getPhotos(offset: Int, limit: Int) = apiInterface.getPhotos(offset, limit)
 }

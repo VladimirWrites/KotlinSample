@@ -19,11 +19,11 @@ package com.vlad1m1r.kotlintest.presentation.list
 import android.view.ViewGroup
 
 import com.vlad1m1r.kotlintest.R
-import com.vlad1m1r.kotlintest.domain.models.ItemPhoto
+import com.vlad1m1r.kotlintest.domain.models.PhotoData
 import com.vlad1m1r.kotlintest.presentation.base.BaseAdapter
 import com.vlad1m1r.kotlintest.presentation.utils.ImageLoaderImpl
 
-class ListAdapter : BaseAdapter<ListViewHolder, ItemPhoto>() {
+class ListAdapter : BaseAdapter<ListViewHolder, PhotoData>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder =
             when (viewType) {

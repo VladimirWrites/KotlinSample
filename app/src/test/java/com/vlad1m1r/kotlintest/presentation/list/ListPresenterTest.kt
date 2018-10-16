@@ -16,29 +16,25 @@
 
 package com.vlad1m1r.kotlintest.presentation.list
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockitokotlin2.*
 import com.vlad1m1r.kotlintest.R
+import com.vlad1m1r.kotlintest.domain.PhotoState
 import com.vlad1m1r.kotlintest.domain.interactors.GetPhotos
+import com.vlad1m1r.kotlintest.presentation.utils.TextContextProvider
+import com.vlad1m1r.kotlintest.presentation.utils.CoroutineDisposable
 import com.vlad1m1r.kotlintest.testutils.ITEM_PHOTO_LIST
-import com.vlad1m1r.kotlintest.testutils.ITEM_PHOTO_OBSERVABLE
-import com.vlad1m1r.kotlintest.testutils.RxImmediateSchedulerRule
-import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import org.junit.Rule
+import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import java.net.UnknownHostException
 
 class ListPresenterTest {
 
-    @Rule
-    @JvmField
-    var testSchedulerRule = RxImmediateSchedulerRule()
-
     private val view = mock<ListContract.View>()
     private val getPhotos = mock<GetPhotos>()
-    private val disposables = mock<CompositeDisposable>()
+    private val disposables = mock<CoroutineDisposable>()
+    private val coroutineContextProvider = TextContextProvider()
 
-    private val presenter = ListPresenter(view, getPhotos, disposables)
+    private val presenter = ListPresenter(view, getPhotos, disposables, coroutineContextProvider)
     private val presenterMock = mock<ListPresenter>()
 
     @Test
@@ -50,7 +46,7 @@ class ListPresenterTest {
 
     @Test
     fun loadDataOffsetZero() {
-        whenever(getPhotos.getPhotos(any(), any())).thenReturn(ITEM_PHOTO_OBSERVABLE)
+        whenever(runBlocking { getPhotos.getPhotos(any(), any()) }).thenReturn(PhotoState.Data(ITEM_PHOTO_LIST))
         presenter.loadData(0)
         verify(disposables).add(any())
         verify(view).showProgress(true)
@@ -60,28 +56,28 @@ class ListPresenterTest {
 
     @Test
     fun loadDataOffsetNotZero() {
-        whenever(getPhotos.getPhotos(any(), any())).thenReturn(ITEM_PHOTO_OBSERVABLE)
+        whenever(runBlocking { getPhotos.getPhotos(any(), any()) }).thenReturn(PhotoState.Data(ITEM_PHOTO_LIST))
         presenter.loadData(20)
         verify(view).addList(ITEM_PHOTO_LIST)
     }
 
     @Test
     fun loadDataEmpty() {
-        whenever(getPhotos.getPhotos(any(), any())).thenReturn(Observable.just(ArrayList()))
+        whenever(runBlocking { getPhotos.getPhotos(any(), any()) }).thenReturn(PhotoState.Data(ArrayList()))
         presenter.loadData(0)
         verify(view).showEmptyView()
     }
 
     @Test
     fun loadDataErrorUnknownHostException() {
-        whenever(getPhotos.getPhotos(any(), any())).thenReturn(Observable.error(UnknownHostException()))
+        whenever(runBlocking { getPhotos.getPhotos(any(), any()) }).thenReturn(PhotoState.Error(UnknownHostException()))
         presenter.loadData(0)
         verify(view).showError(R.string.error__check_internet_connection)
     }
 
     @Test
     fun loadDataErrorException() {
-        whenever(getPhotos.getPhotos(any(), any())).thenReturn(Observable.error(Exception()))
+        whenever(runBlocking { getPhotos.getPhotos(any(), any()) }).thenReturn(PhotoState.Error(Exception()))
         presenter.loadData(0)
         verify(view).showError(R.string.error__request_error)
     }
@@ -89,6 +85,6 @@ class ListPresenterTest {
     @Test
     fun onDestroy() {
         presenter.onDestroy()
-        verify(disposables).clear()
+        verify(disposables).dispose()
     }
 }

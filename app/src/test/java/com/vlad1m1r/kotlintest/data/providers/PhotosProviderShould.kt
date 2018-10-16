@@ -17,23 +17,30 @@
 package com.vlad1m1r.kotlintest.data.providers
 
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import com.vlad1m1r.kotlintest.data.ApiInterface
-import com.vlad1m1r.kotlintest.testutils.ITEM_PHOTO_LIST
-import com.vlad1m1r.kotlintest.testutils.PHOTO_DATA_OBSERVABLE
+import com.vlad1m1r.kotlintest.data.models.Photo
+import kotlinx.coroutines.experimental.Deferred
 import org.junit.Test
 
-class PhotosProviderTest {
+class PhotosProviderShould {
 
     private val apiInterface = mock<ApiInterface>()
     private val photosProvider = PhotosProvider(apiInterface)
+    private val data = mock<Deferred<List<Photo>>>()
 
     @Test
-    fun getGetPhotos() {
-        whenever(apiInterface.getPhotos(any(), any())).thenReturn(PHOTO_DATA_OBSERVABLE)
-        val actual = photosProvider.getPhotos(0, 20).blockingFirst()
-        assertThat(actual).containsExactlyElementsIn(ITEM_PHOTO_LIST)
+    fun callApiInterfaceWithSameParams() {
+        photosProvider.getPhotos(0, 21)
+        verify(apiInterface).getPhotos(0, 21)
+    }
+
+    @Test
+    fun getPassDataFromApiInterface() {
+        whenever(apiInterface.getPhotos(any(), any())).thenReturn(data)
+        assertThat(photosProvider.getPhotos(0, 21)).isEqualTo(data)
     }
 }
