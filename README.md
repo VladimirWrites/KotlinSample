@@ -1,6 +1,6 @@
 # KotlinSample
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/VladimirWrites/KotlinSample/blob/master/LICENSE) 
-[![Kotlin](https://img.shields.io/badge/style-1.2.30-green.svg?style=flat&label=Kotlin)](https://kotlinlang.org) 
+[![Kotlin](https://img.shields.io/badge/style-1.2.71-green.svg?style=flat&label=Kotlin)](https://kotlinlang.org) 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-KotlinSample-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/5554)
 [![codecov](https://codecov.io/gh/VladimirWrites/KotlinSample/branch/master/graph/badge.svg)](https://codecov.io/gh/VladimirWrites/KotlinSample)
 [![Build Status](https://travis-ci.org/VladimirWrites/KotlinSample.svg?branch=master)](https://travis-ci.org/VladimirWrites/KotlinSample)
@@ -13,8 +13,8 @@ About
 -------
 
 The app uses [JSONPlaceholder](https://jsonplaceholder.typicode.com) as a REST API.
-Communication with API is done using Retrofit together with RxJava2 Adapter.
-RxJava is used for all network related threading.
+Communication with API is done using Retrofit together with Coroutine Adapter.
+Coroutines are used for all network related threading.
 The presentation layer is based on MVP architectural pattern.
 
 Contributing
