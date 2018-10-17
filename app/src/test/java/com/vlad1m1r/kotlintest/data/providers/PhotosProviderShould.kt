@@ -33,7 +33,7 @@ class PhotosProviderShould {
     private val data = mock<Deferred<List<Photo>>>()
 
     @Test
-    fun callApiInterfaceWithSameParams() {
+    fun callApiInterface_withSameParams() {
         photosProvider.getPhotos(0, 21)
         verify(apiInterface).getPhotos(0, 21)
     }

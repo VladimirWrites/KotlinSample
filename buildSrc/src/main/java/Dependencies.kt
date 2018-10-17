@@ -60,6 +60,7 @@ object Deps {
     val mockito_kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockito_kotlin}"
     val truth = "com.google.truth:truth:${Versions.truth}"
     val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
+    val kotlin_test = "org.jetbrains.kotlin:kotlin-test:${Versions.kotlin}"
 
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.gradle_android}"
     val kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"

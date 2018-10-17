@@ -23,39 +23,42 @@ import com.vlad1m1r.kotlintest.R
 import com.vlad1m1r.kotlintest.domain.models.PhotoData
 import org.junit.Test
 import java.util.*
+import kotlin.test.assertFailsWith
 
-class ListAdapterTest {
+class ListAdapterShould {
 
     private val viewGroup = mock<ViewGroup>()
     private val listAdapter = spy(ListAdapter())
 
-    @Test(expected = IllegalArgumentException::class)
-    fun onCreateViewHolderWhenWrongViewType() {
-        listAdapter.onCreateViewHolder(viewGroup, R.layout.item_photo + 1)
+    @Test
+    fun throwException_whenWrongViewTypePassed() {
+        assertFailsWith<IllegalArgumentException> {
+            listAdapter.onCreateViewHolder(viewGroup, R.layout.item_photo + 1)
+        }
     }
 
     @Test
-    fun onCreateViewHolder() {
+    fun createViewHolder_whenCorrectViewTypePassed() {
         val listViewHolder = mock<ListViewHolder>()
         doReturn(listViewHolder).whenever(listAdapter).getViewHolder(viewGroup)
         assertThat(listAdapter.onCreateViewHolder(viewGroup, R.layout.item_photo)).isEqualTo(listViewHolder)
     }
 
     @Test
-    fun onBindViewHolder() {
+    fun bindViewHolder_withPhotoData() {
         val listViewHolder = mock<ListViewHolder>()
-        val itemPhoto = PhotoData("name", "url")
+        val photoData = PhotoData("name", "url")
         val list = mock<ArrayList<PhotoData>>()
         doReturn(list).whenever(listAdapter).list
-        doReturn(itemPhoto).whenever(list)[any()]
+        doReturn(photoData).whenever(list)[any()]
 
         val position = (1..1000).random()
         listAdapter.onBindViewHolder(listViewHolder, position)
-        verify(listViewHolder).setPhoto(itemPhoto)
+        verify(listViewHolder).setPhoto(photoData)
     }
 
     @Test
-    fun getItemViewType() {
+    fun haveSameLayoutId_forEveryViewType() {
         for(i in 1..100) {
             assertThat(listAdapter.getItemViewType((1..1000).random())).isEqualTo(R.layout.item_photo)
         }

@@ -28,7 +28,7 @@ import com.vlad1m1r.kotlintest.presentation.utils.ImageLoader
 import kotlinx.android.synthetic.main.item_photo.view.*
 import org.junit.Test
 
-class ListViewHolderTest {
+class ListViewHolderShould {
 
     private val context = mock<Context>()
     private val imageView = mock<AppCompatImageView>()
@@ -41,12 +41,12 @@ class ListViewHolderTest {
     }
     private val imageLoader = mock<ImageLoader>()
     private val listViewHolder = ListViewHolder(itemView, imageLoader)
-    private val itemPhoto = PhotoData("name", "url")
+    private val photoData = PhotoData("name", "url")
 
     @Test
-    fun setPhoto() {
-        listViewHolder.setPhoto(itemPhoto)
-        verify(textView).text = itemPhoto.name
-        verify(imageLoader).load(context, itemPhoto.url, imageView)
+    fun showData_whenPhotoDataPassed() {
+        listViewHolder.setPhoto(photoData)
+        verify(textView).text = photoData.name
+        verify(imageLoader).load(context, photoData.url, imageView)
     }
 }

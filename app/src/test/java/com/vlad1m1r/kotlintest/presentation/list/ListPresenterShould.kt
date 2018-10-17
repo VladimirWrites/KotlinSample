@@ -27,7 +27,7 @@ import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import java.net.UnknownHostException
 
-class ListPresenterTest {
+class ListPresenterShould {
 
     private val view = mock<ListContract.View>()
     private val getPhotos = mock<GetPhotos>()
